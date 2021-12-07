@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 import Input from 'components/Input';
 import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hooks/useFormData';
+import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
+import { toast } from 'react-toastify';
 
 const EditarUsuario = () => {
 
@@ -12,24 +14,42 @@ const EditarUsuario = () => {
     const { form, formData, updateFormData } = useFormData(null);
     //captura los datos del id de la url
     const {_id} = useParams();
-    const {data, error, loading} = useQuery(GET_USUARIO, {
+    const {data: queryData, error: queryError, loading: queryLoading} = useQuery(GET_USUARIO, {
         variables: {_id},
     });
 
+    const [editarUsuario, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(EDITAR_USUARIO);
 
-    if (loading) return <h1 className="text-center display-1 h1"> Cargando!!</h1>
-
+    
     //funcion para hacer submit al formulario y envio de datos
     const submitForm = (e) => {
         e.preventDefault();
-        // console.log('fd', formData);
+        console.log('fd', formData);
         // delete formData.rol;
-        // editarUsuario({
-        //   variables: { _id, ...formData },
-        // });
-      };
+        editarUsuario({
+            variables: { _id, ...formData, rol: 'ADMINISTRADOR' },
+        });
+    };
 
-    console.log(data);
+    useEffect(() => {
+        if (mutationData) {
+          toast.success('Usuario modificado correctamente');
+        }
+      }, [mutationData]);
+
+    useEffect(() => {
+    if (mutationError) {
+        toast.error('Error modificando el usuario');
+    }
+
+    if (queryError) {
+        toast.error('Error consultando el usuario');
+    }
+    }, [queryError, mutationError]);
+    
+    console.log(queryData);
+    if (queryLoading) return <h1 className="text-center display-1 h1"> Cargando!!</h1>
+
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
             <Link to='/usuarios'>
@@ -46,42 +66,42 @@ const EditarUsuario = () => {
                     label='Nombre:'
                     type='text'
                     name='nombre'
-                    defaultValue={data.Usuario.nombre}
+                    defaultValue={queryData.Usuario.nombre}
                     required={true}
                 />
                 <Input
                     label='Apellido:'
                     type='text'
                     name='apellido'
-                    defaultValue={data.Usuario.apellido}
+                    defaultValue={queryData.Usuario.apellido}
                     required={true}
                 />
                 <Input
                     label='Correo:'
                     type='email'
                     name='correo'
-                    defaultValue={data.Usuario.correo}
+                    defaultValue={queryData.Usuario.correo}
                     required={true}
                 />
                 <Input
                     label='Identificación:'
                     type='text'
                     name='identificacion'
-                    defaultValue={data.Usuario.identificacion}
+                    defaultValue={queryData.Usuario.identificacion}
                     required={true}
                 />
                 {/* <DropDown
                     label='Estado de la persona:'
                     name='estado'
-                    defaultValue={data.Usuario.estado}
+                    defaultValue={queryData.Usuario.estado}
                     required={true}
                     options={Enum_EstadoUsuario}
                 /> */}
-                {/* <span>Rol del usuario: {data.Usuario.rol}</span> */}
+                {/* <span>Rol del usuario: {queryData.Usuario.rol}</span> */}
                 <ButtonLoading
-                    disabled={false}
-                    loading={false}
-                    text='Confirmar'
+                    disabled={Object.keys(formData).length === 0}
+                    loading={mutationLoading}
+                    text='Confirmar Cambio'
                 />
         </form>
         </div>

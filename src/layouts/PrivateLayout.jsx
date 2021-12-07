@@ -2,6 +2,7 @@ import Sidebar from 'components/Sidebar';
 import { Outlet } from 'react-router';
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PrivateLayout = () => {
   return (
@@ -12,7 +13,7 @@ const PrivateLayout = () => {
           <Outlet />
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer position="bottom-center" />
     </div>
   );
 };
