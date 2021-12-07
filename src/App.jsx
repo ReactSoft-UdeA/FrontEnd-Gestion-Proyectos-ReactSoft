@@ -21,7 +21,7 @@ import EditarUsuario from 'pages/usuarios/editar';
 
 // crear una variable del cliens de apollo
 const client = new ApolloClient ({
-  uri: 'https://servidor-graphql-mintic-leo.herokuapp.com/graphql',
+  uri: 'http://localhost:4000/graphql',
   cache : new InMemoryCache()
 });
 
