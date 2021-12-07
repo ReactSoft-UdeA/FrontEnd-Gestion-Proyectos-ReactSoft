@@ -1,22 +1,29 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Input from 'components/Input';
 import DropDown from 'components/Dropdown';
 import ButtonLoading from 'components/ButtonLoading';
 import { Enum_Rol } from 'utils/enums';
 import useFormData from 'hooks/useFormData';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { REGISTRO } from 'graphql/auth/mutation';
 
 
 const Register = () => {
 
     const { form, formData, updateFormData } = useFormData();
 
+    const [registro, { data: dataMutation, loading: loadingMutation, error: errorMutation}] = useMutation(REGISTRO);
 
     const submitForm = (e) => {
         e.preventDefault();
-        // console.log('enviar datos al backend', formData);
-        // registro({ variables: formData });
-      };
+        console.log('enviar datos al backend', formData);
+        registro({ variables: formData });
+    };
+
+    useEffect(() => {
+        console.log('Data Mutation', dataMutation)
+    }, [dataMutation]);
 
     return (
         <div className='flex flex-col h-full w-full items-center justify-center'>
@@ -28,7 +35,7 @@ const Register = () => {
                 <Input label='Documento:' name='identificacion' type='text' required />
                 <DropDown label='Rol deseado:' name='rol' required={true} options={Enum_Rol} />
                 <Input label='Correo:' name='correo' type='email' required />
-                <Input label='Contraseña:' name='password' type='password' required />
+                <Input label='Contraseña:' name='clave' type='password' required />
                 </div>
                 <ButtonLoading
                 disabled={Object.keys(formData).length === 0}
