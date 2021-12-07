@@ -6,7 +6,7 @@ const ButtonLoading = ({ disabled, loading, text }) => {
     <button
       disabled={disabled}
       type='submit'
-      className='btn btn-primary'
+      className='btn btn-primary my-3'
     >
       {loading ? <ReactLoading type='spin' height={30} width={30} /> : text}
     </button>

@@ -7,6 +7,8 @@ import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hooks/useFormData';
 import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
 import { toast } from 'react-toastify';
+import DropDown from 'components/Dropdown';
+import { Enum_EstadoUsuario } from 'utils/enum';
 
 const EditarUsuario = () => {
 
@@ -25,15 +27,15 @@ const EditarUsuario = () => {
     const submitForm = (e) => {
         e.preventDefault();
         console.log('fd', formData);
-        // delete formData.rol;
+        delete formData.rol;
         editarUsuario({
-            variables: { _id, ...formData, rol: 'ADMINISTRADOR' },
+            variables: { _id, ...formData },
         });
     };
 
     useEffect(() => {
         if (mutationData) {
-          toast.success('Usuario modificado correctamente');
+          toast.success('El Usuario se editó Exitosamente!!');
         }
       }, [mutationData]);
 
@@ -62,6 +64,8 @@ const EditarUsuario = () => {
                 ref={form}
                 className='flex flex-col items-center justify-center'
             >
+                <span className = 'p-2 bg-light border'>Su Rol es: {queryData.Usuario.rol}</span>
+
                 <Input
                     label='Nombre:'
                     type='text'
@@ -90,14 +94,13 @@ const EditarUsuario = () => {
                     defaultValue={queryData.Usuario.identificacion}
                     required={true}
                 />
-                {/* <DropDown
-                    label='Estado de la persona:'
+                <DropDown
+                    label='Estado:'
                     name='estado'
                     defaultValue={queryData.Usuario.estado}
                     required={true}
                     options={Enum_EstadoUsuario}
-                /> */}
-                {/* <span>Rol del usuario: {queryData.Usuario.rol}</span> */}
+                />
                 <ButtonLoading
                     disabled={Object.keys(formData).length === 0}
                     loading={mutationLoading}

@@ -22,7 +22,7 @@ import EditarUsuario from 'pages/usuarios/editar';
 // crear una variable del cliens de apollo
 const client = new ApolloClient ({
   uri: 'http://localhost:4000/graphql',
-  cache : new InMemoryCache()
+  cache : new InMemoryCache(),
 });
 
 function App() {
