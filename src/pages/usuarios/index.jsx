@@ -36,7 +36,6 @@ const IndexUsuarios = () => {
                         <th scope="col" className="text-center">Rol</th>
                         <th scope="col" className="text-center">Estado</th>
                         <th scope="col" className="text-center">Editar</th>
-                        <th scope="col" className="text-center">Borrar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +52,6 @@ const IndexUsuarios = () => {
                                             <td className="text-center">{u.rol}</td>
                                             <td className="text-center">{u.estado}</td>
                                             <td ><Link to ={`/usuarios/editar/${u._id}`} ><i className='fas fa-pen input-group justify-content-around '></i></Link></td>
-                                            <td className="text-center">Borrar</td>
                                     </tr>
                                 );
 
