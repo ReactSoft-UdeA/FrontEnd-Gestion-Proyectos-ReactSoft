@@ -3,8 +3,8 @@ import { useQuery } from '@apollo/client'
 import { GET_USUARIOS } from 'graphql/usuarios/queries'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { Enum_Rol } from 'utils/enum';
-import { Enum_EstadoUsuario } from 'utils/enum';
+import { Enum_Rol } from 'utils/enums';
+import { Enum_EstadoUsuario } from 'utils/enums';
 
 const IndexUsuarios = () => {
     const {data, error, loading} = useQuery(GET_USUARIOS);
