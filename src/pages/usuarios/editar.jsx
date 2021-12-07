@@ -4,9 +4,12 @@ import { useQuery } from '@apollo/client';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 import Input from 'components/Input';
 import ButtonLoading from 'components/ButtonLoading';
+import useFormData from 'hooks/useFormData';
 
 const EditarUsuario = () => {
-    
+
+    //variables pque se envian para el cambio de datos
+    const { form, formData, updateFormData } = useFormData(null);
     //captura los datos del id de la url
     const {_id} = useParams();
     const {data, error, loading} = useQuery(GET_USUARIO, {
@@ -16,7 +19,16 @@ const EditarUsuario = () => {
 
     if (loading) return <h1 className="text-center display-1 h1"> Cargando!!</h1>
 
-    
+    //funcion para hacer submit al formulario y envio de datos
+    const submitForm = (e) => {
+        e.preventDefault();
+        // console.log('fd', formData);
+        // delete formData.rol;
+        // editarUsuario({
+        //   variables: { _id, ...formData },
+        // });
+      };
+
     console.log(data);
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
@@ -25,9 +37,9 @@ const EditarUsuario = () => {
             </Link>
             <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Usuario</h1>
             <form
-                // onSubmit={submitForm}
-                // onChange={updateFormData}
-                // ref={form}
+                onSubmit={submitForm}
+                onChange={updateFormData}
+                ref={form}
                 className='flex flex-col items-center justify-center'
             >
                 <Input
