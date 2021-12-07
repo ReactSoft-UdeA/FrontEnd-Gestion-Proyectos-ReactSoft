@@ -7,7 +7,7 @@ import { Enum_Rol } from 'utils/enum';
 import { Enum_EstadoUsuario } from 'utils/enum';
 
 const IndexUsuarios = () => {
-    const {data, error, loading} = useQuery(GET_USUARIOS)
+    const {data, error, loading} = useQuery(GET_USUARIOS);
 
     useEffect(() => {
         console.log('data servidor ', data)
@@ -45,8 +45,8 @@ const IndexUsuarios = () => {
                             data.Usuarios.map((u) => {
                                 return (
                                     <tr key={u._id}>
-                                        <th scope="row" className="text-center">{u._id.slice(20)}</th>
-                                            {/* <td className="text-center">{u._id.slice(20)}</td> */}
+                                        {/* <th scope="row" className="text-center">{u._id.slice(20)}</th> */}
+                                            <td className="text-center">{u._id.slice(20)}</td>
                                             <td className="text-center">{u.identificacion}</td>
                                             <td className="text-center">{u.nombre}</td>
                                             <td className="text-center">{u.apellido}</td>

@@ -1,17 +1,17 @@
 import {gql} from '@apollo/client';
 
 const GET_USUARIOS = gql `
-    query BuscarUsuarios {
-  Usuarios {
-    _id
-    nombre
-    apellido
-    correo
-    estado
-    identificacion
-    rol
+  query BuscarUsuarios {
+    Usuarios {
+      _id
+      nombre
+      apellido
+      correo
+      estado
+      identificacion
+      rol
+    }
   }
-}
 `;
 
 const GET_USUARIO = gql `
