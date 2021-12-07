@@ -16,7 +16,10 @@ const REGISTRO = gql`
       correo: $correo
       rol: $rol
       clave: $clave
-    )
+    ) {
+        token
+        error
+    }
   }
 `;
 

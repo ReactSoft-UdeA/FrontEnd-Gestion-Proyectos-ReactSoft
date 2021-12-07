@@ -7,9 +7,13 @@ import useFormData from 'hooks/useFormData';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { REGISTRO } from 'graphql/auth/mutation';
+import { useNavigate } from 'react-router';
+
 
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     const { form, formData, updateFormData } = useFormData();
 
@@ -22,8 +26,14 @@ const Register = () => {
     };
 
     useEffect(() => {
-        console.log('Data Mutation', dataMutation)
-    }, [dataMutation]);
+        console.log('data mutation', dataMutation);
+        if (dataMutation) {
+          if (dataMutation.registro.token) {
+            localStorage.setItem('token', dataMutation.registro.token);
+            navigate('/');
+          }
+        }
+      }, [dataMutation]);
 
     return (
         <div className='flex flex-col h-full w-full items-center justify-center'>
