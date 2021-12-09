@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 import { Link, useParams } from 'react-router-dom';
 
 const ObtenerProyectos = () => {
-    const {_id} = "6195156ba02a705cdb6575c5";
+    const {_id} = useParams();
     const {data, error, loading} = useQuery(GET_PROYECTOS, {
-        variables: _id,
+        variables: { id: { _id }},
     });
        
     useEffect(() => {
@@ -22,8 +22,6 @@ const ObtenerProyectos = () => {
     }, [error]);
 
     if (loading) return <h1 className="text-center display-1 h1"> Cargando!!</h1>
-
-
 
     return (
         <div>
@@ -58,8 +56,8 @@ const ObtenerProyectos = () => {
                                 <td class="text-center">{u.fase}</td>
                                 <td class="text-center">{u.estado}</td>
                                 <td >
-                                    <Link to ={`/usuarios/editar/${u._id}`} >
-                                        {/* <i class='fas fa-pen input-group justify-content-around '></i> */}
+                                    <Link to ={`/proyecto/mostrar/${u._id}`} >
+                                        <i class='fas fa-pen input-group justify-content-around '></i>
                                     </Link>
                                 </td>
                         </tr>

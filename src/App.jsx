@@ -12,6 +12,7 @@ import Category1 from 'pages/category1/CategoryPage1';
 import 'styles/globals.css';
 import IndexUsuarios from 'pages/usuarios';
 import EditarUsuario from 'pages/usuarios/editar';
+import MostrarProyectoXId from 'pages/proyectos/MostrarProyectoXId';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 
@@ -43,6 +44,8 @@ function App() {
                 <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} />
                 <Route path='page2' element={<Page2 />} />
                 <Route path='/proyectos' element={<ObtenerProyectos />} />
+                <Route path='/proyecto/mostrar/:_id' element={<MostrarProyectoXId />} />
+                <Route path='/inscripciones' element={<MostrarProyectoXId />} />
                 <Route path='category1' element={<IndexCategory1 />} />
                 <Route path='category1/page1' element={<Category1 />} />
               </Route>
