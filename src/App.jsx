@@ -6,6 +6,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client';
 // import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import Index from 'pages/Index';
 import Page2 from 'pages/Page2';
+import ObtenerProyectos from 'pages/proyectos/ObtenerProyectos';
 import IndexCategory1 from 'pages/category1/Index';
 import Category1 from 'pages/category1/CategoryPage1';
 import 'styles/globals.css';
@@ -41,6 +42,7 @@ function App() {
                 <Route path='/usuarios' element={<IndexUsuarios />} />
                 <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} />
                 <Route path='page2' element={<Page2 />} />
+                <Route path='/proyectos' element={<ObtenerProyectos />} />
                 <Route path='category1' element={<IndexCategory1 />} />
                 <Route path='category1/page1' element={<Category1 />} />
               </Route>
