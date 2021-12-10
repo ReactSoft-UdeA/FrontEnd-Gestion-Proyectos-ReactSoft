@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react'
 import { useQuery } from '@apollo/client'
-import { GET_PROYECTOS } from 'graphql/proyectos/queries'
+import { GET_PROYECTOS_LIDER } from 'graphql/proyectos/queries'
 import { toast } from 'react-toastify';
 import { Link, useParams } from 'react-router-dom';
 
 const ObtenerProyectos = () => {
     const {_id} = useParams();
-    const {data, error, loading} = useQuery(GET_PROYECTOS, {
+    const {data, error, loading} = useQuery(GET_PROYECTOS_LIDER, {
         variables: { id: { _id }},
     });
        

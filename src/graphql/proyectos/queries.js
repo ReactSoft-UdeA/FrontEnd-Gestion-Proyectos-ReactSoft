@@ -1,6 +1,26 @@
 import {gql} from '@apollo/client'
 
-const GET_PROYECTOS =gql `
+const GET_PROYECTOS = gql`
+  query Proyectos {
+    Proyectos {
+      nombre
+      _id
+      presupuesto
+      fechaInicio
+      fechaFin
+      estado
+      fase
+      lider {
+        nombre
+        correo
+      }
+    }
+  }
+`;
+
+
+
+const GET_PROYECTOS_LIDER =gql `
 query{
   ProyectosPorLider(_id: "6195156ba02a705cdb6575c5") {
     _id
@@ -65,4 +85,5 @@ query{
 }
 `;
 
-export {GET_PROYECTOS, GET_PROYECTOXID, GET_PROYECTOXID_DETALLE}
+
+export {GET_PROYECTOS, GET_PROYECTOS_LIDER, GET_PROYECTOXID, GET_PROYECTOXID_DETALLE}
