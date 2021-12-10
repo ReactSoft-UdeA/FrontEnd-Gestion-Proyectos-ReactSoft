@@ -55,7 +55,7 @@ const IndexProyectos = () => {
                 Correo
               </th>
               <th scope="col" className="text-center">
-                Editar
+                Inscripción
               </th>
             </tr>
           </thead>
@@ -72,11 +72,11 @@ const IndexProyectos = () => {
                     <td className="text-center">{u.fechaFin}</td>
                     <td className="text-center">{u.estado}</td>
                     <td className="text-center">{u.fase}</td>
-                    <td className="text-center">{u.lider[u.nombre]}</td>
-                    <td className="text-center">{u.lider[u.correo]}</td>
+                    <td className="text-center">{u.lider.nombre}</td>
+                    <td className="text-center">{u.lider.correo}</td>
                     <td>
-                      <Link to={`/proyectos/editar/${u._id}`}>
-                        <i className="fas fa-pen input-group justify-content-around "></i>
+                      <Link to={`/proyectos/inscripcion/${u._id}`}>
+                        <i className="far fa-clipboard input-group justify-content-around "></i>
                       </Link>
                     </td>
                   </tr>

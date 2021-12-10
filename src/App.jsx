@@ -9,12 +9,14 @@ import Page2 from "pages/Page2";
 import IndexCategory1 from "pages/category1/Index";
 import Category1 from "pages/category1/CategoryPage1";
 import "styles/globals.css";
+//Pagina home
+import Home from "pages/HOME/home";
 //Paginas Usuarios
 import IndexUsuarios from "pages/usuarios";
 import EditarUsuario from "pages/usuarios/editar";
 //Paginas Proyectos
 import IndexProyectos from "pages/proyectos";
-import EditarProyecto from "pages/proyectos/editar";
+import InscripcionProyecto from "pages/proyectos/inscripcion";
 //Paginas Autenticacion
 import AuthLayout from "layouts/AuthLayout";
 import Register from "pages/auth/register";
@@ -42,12 +44,13 @@ function App() {
           <Routes>
             <Route path="/" element={<PrivateLayout />}>
               <Route path="" element={<Index />} />
+              {/* <Route path="/home" element={<Home />} /> */}
               <Route path="/usuarios" element={<IndexUsuarios />} />
               <Route path="/usuarios/editar/:_id" element={<EditarUsuario />} />
               <Route path="/proyectos" element={<IndexProyectos />} />
               <Route
-                path="/proyectos/editar/:_id"
-                element={<EditarProyecto />}
+                path="/proyectos/inscripcion"
+                element={<InscripcionProyecto />}
               />
               <Route path="page2" element={<Page2 />} />
               <Route path="category1" element={<IndexCategory1 />} />
