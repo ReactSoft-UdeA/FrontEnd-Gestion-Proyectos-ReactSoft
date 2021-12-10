@@ -18,6 +18,7 @@ import {
   AccordionDetailsStyled,
 } from 'components/Accordion';
 
+
 const IndexProyectos = () => {
   const { data: queryData, loading, error } = useQuery(PROYECTOS);
 
