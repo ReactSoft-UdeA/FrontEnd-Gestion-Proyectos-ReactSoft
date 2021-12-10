@@ -1,12 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const Index = () => {
   return (
-    <div>
-      <div className='bg-green-300 h-96'>Index page</div>
-      <div className='bg-green-300 h-96'>Index page</div>
-      <div className='bg-green-300 h-96'>Index page</div>
-      <div className='bg-green-300 h-96'>Index page</div>
+    <div className="bg-gray-100 h-96">
+      {" "}
+      <h1>React Soft</h1>
+      {/* <div className="bg-gray-100 h-96">React Soft</div> */}
     </div>
   );
 };
