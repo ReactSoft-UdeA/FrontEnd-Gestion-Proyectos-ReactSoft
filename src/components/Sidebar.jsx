@@ -5,7 +5,7 @@ const SidebarLinks = () => {
   return (
     <ul className="mt-12">
       <SidebarRoute to="" title="Inicio" icon="fas fa-home" />
-      <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-user" />
+      <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-users" />
       {/* <SidebarRoute to="/page2" title="Pagina2" icon="fas fa-smile-wink" /> */}
       <SidebarRoute
         to="/proyectos"
@@ -18,7 +18,7 @@ const SidebarLinks = () => {
         icon="fas fa-clipboard-check"
       />
       {/* <SidebarRoute to="/category1" title="Catego 1" icon="fab fa-amazon" /> */}
-      <SidebarRoute to="/category1/page1" title="Test" icon="fas fa-car" />
+      <SidebarRoute to="/category1/page1" title="En Construccion!!" icon="fas fa-hard-hat" />
     </ul>
   );
 };
@@ -82,8 +82,8 @@ const SidebarRoute = ({ to, title, icon }) => {
         to={to}
         className={({ isActive }) =>
           isActive
-            ? "sidebar-route text-white bg-indigo-700"
-            : "sidebar-route text-gray-900 hover:text-white hover:bg-indigo-400"
+            ? "sidebar-route text-white bg-blue-400"
+            : "sidebar-route text-gray-900 hover:text-white hover:bg-gray-400"
         }
       >
         <div className="flex items-center">
