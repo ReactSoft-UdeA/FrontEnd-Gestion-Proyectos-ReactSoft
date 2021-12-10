@@ -55,13 +55,14 @@ const ObtenerProyectos = () => {
                                 <td class="text-center">{u.fechaFin}</td>
                                 <td class="text-center">{u.fase}</td>
                                 <td class="text-center">{u.estado}</td>
-                                <td class="d-flex justify-content-around">
+                                <td class="d-flex justify-content-around align-items-center" style={{color:"red",height:"75px"}}>
+                                    <Link to ={`/proyecto/detalle/${u._id}`} >
+                                        <i class='fas fa-eye input-group justify-content-around '></i>
+                                    </Link>
                                     <Link to ={`/proyecto/mostrar/${u._id}`} >
                                         <i class='fas fa-pen input-group justify-content-around '></i>
                                     </Link>
-                                    <Link to ={`/proyecto/detalle/${u._id}`} >
-                                        <i class='fas fa-pen input-group justify-content-around '></i>
-                                    </Link>
+                                    
                                 </td>
                         </tr>
                     );           
