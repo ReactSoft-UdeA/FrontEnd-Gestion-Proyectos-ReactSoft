@@ -46,11 +46,11 @@ const MostrarProyectoXId = () => {
             </div>
             <div class="mb-3 col-lg-3 m-3">
                 <label for="exampleFormControlInput1" class="form-label">Nombre proyecto</label>
-                <input type="text" class="form-control" value={ queryData.ProyectosPorId[0].nombre }/>
+                <input type="text" class="form-control" value={ queryData.ProyectosPorId[0].nombre } disabled/>
             </div>
             <div class="mb-3 col-lg-3 m-3">
                 <label for="exampleFormControlInput1" class="form-label">Presupuesto</label>
-                <input type="text" class="form-control" value={ queryData.ProyectosPorId[0].presupuesto }/>
+                <input type="text" class="form-control" value={ queryData.ProyectosPorId[0].presupuesto } disabled/>
             </div>
             <div class="mb-3 col-lg-3 m-3">
                 <label for="exampleFormControlInput1" class="form-label">Fecha inicio</label>
@@ -62,7 +62,7 @@ const MostrarProyectoXId = () => {
             </div>
             <div class="mb-3 col-lg-3 m-3">
                 <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                <input type="text" class="form-control" value={ queryData.ProyectosPorId[0].estado }/>
+                <input type="text" class="form-control" value={ queryData.ProyectosPorId[0].estado } disabled/>
             </div>
                 <b/>
                 <h2 class="col-lg-12 mb-3"><strong>OBJETIVOS</strong></h2>
@@ -74,6 +74,7 @@ const MostrarProyectoXId = () => {
                     <th scope="col">ID OBJETIVO</th>
                     <th scope="col">TIPO</th>
                     <th scope="col">DESCRIPCIÓN</th>
+                    <th scope="col">EDITAR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,7 +100,7 @@ const MostrarProyectoXId = () => {
                 </tbody>
                 </table>
 
-                <button type="button" class="btn btn-primary">Guardar edición</button>    
+                <button type="button" class="btn btn-primary">Editar</button>    
             
             </div>
                 

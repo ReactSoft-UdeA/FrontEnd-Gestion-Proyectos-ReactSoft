@@ -35,7 +35,7 @@ const ObtenerProyectos = () => {
                     <th scope="col">PRESUPUESTO</th>
                     <th scope="col">INICIO</th>
                     <th scope="col">FIN</th>
-                    <th scope="col">LIDER</th>
+                    <th scope="col">FASE</th>
                     <th scope="col">ESTADO</th>
                     <th scope="col">OPCIONES</th>
                     </tr>
@@ -55,8 +55,11 @@ const ObtenerProyectos = () => {
                                 <td class="text-center">{u.fechaFin}</td>
                                 <td class="text-center">{u.fase}</td>
                                 <td class="text-center">{u.estado}</td>
-                                <td >
+                                <td class="d-flex justify-content-around">
                                     <Link to ={`/proyecto/mostrar/${u._id}`} >
+                                        <i class='fas fa-pen input-group justify-content-around '></i>
+                                    </Link>
+                                    <Link to ={`/proyecto/detalle/${u._id}`} >
                                         <i class='fas fa-pen input-group justify-content-around '></i>
                                     </Link>
                                 </td>

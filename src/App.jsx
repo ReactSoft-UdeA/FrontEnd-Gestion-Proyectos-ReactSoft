@@ -13,6 +13,7 @@ import 'styles/globals.css';
 import IndexUsuarios from 'pages/usuarios';
 import EditarUsuario from 'pages/usuarios/editar';
 import MostrarProyectoXId from 'pages/proyectos/MostrarProyectoXId';
+import MostrarProyectoXIdAvances from 'pages/proyectos/MostrarProyectoXIdAvances';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path='page2' element={<Page2 />} />
                 <Route path='/proyectos' element={<ObtenerProyectos />} />
                 <Route path='/proyecto/mostrar/:_id' element={<MostrarProyectoXId />} />
+                <Route path='/proyecto/detalle/:_id' element={<MostrarProyectoXIdAvances />} />
                 <Route path='/inscripciones' element={<MostrarProyectoXId />} />
                 <Route path='category1' element={<IndexCategory1 />} />
                 <Route path='category1/page1' element={<Category1 />} />
