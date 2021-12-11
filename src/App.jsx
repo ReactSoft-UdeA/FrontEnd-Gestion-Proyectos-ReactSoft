@@ -16,6 +16,7 @@ import MostrarProyectoXId from "pages/proyectos/MostrarProyectoXId";
 import MostrarProyectoXIdAvances from "pages/proyectos/MostrarProyectoXIdAvances";
 import AuthLayout from "layouts/AuthLayout";
 import Register from "pages/auth/register";
+import Login from "pages/auth/login";
 import IndexProyectosUsuarios from "pages/proyectosUsuarios";
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -63,6 +64,7 @@ function App() {
             </Route>
             <Route path="/auth" element={<AuthLayout />}>
               <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
             </Route>
           </Routes>
         </BrowserRouter>

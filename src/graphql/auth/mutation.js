@@ -16,11 +16,27 @@ const REGISTRO = gql`
       correo: $correo
       rol: $rol
       clave: $clave
-    ) {
+    ) { 
         token
         error
     }
   }
 `;
 
-export {REGISTRO};
+const LOGIN = gql`
+  mutation Login(
+    $correo: String!
+    $clave: String!
+  ){
+    login(
+      correo: $correo
+      clave: $clave
+    ){
+      token
+      error
+    }
+  }
+
+`
+
+export {REGISTRO, LOGIN};
