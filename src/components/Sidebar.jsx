@@ -13,8 +13,13 @@ const SidebarLinks = () => {
         icon="fas fa-clipboard-check"
       />
       <SidebarRoute
-        to="/proyectosUsuarios"
-        title="Proyectos-Usuario"
+        to="/proyectosUsuarios/index"
+        title="Inscribir Proyecto-Estudiante"
+        icon="fas fa-clipboard-check"
+      />
+      <SidebarRoute
+        to="/misProyectos/index"
+        title="Mis Proyectos-Estudiante"
         icon="fas fa-clipboard-check"
       />
       {/* <SidebarRoute to="/category1" title="Catego 1" icon="fab fa-amazon" /> */}

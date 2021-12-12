@@ -10,13 +10,18 @@ import ObtenerProyectos from "pages/proyectos/ObtenerProyectos";
 import IndexCategory1 from "pages/category1/Index";
 import Category1 from "pages/category1/CategoryPage1";
 import "styles/globals.css";
+//Usuarios
 import IndexUsuarios from "pages/usuarios";
 import EditarUsuario from "pages/usuarios/editar";
+//Proyectos lider
 import MostrarProyectoXId from "pages/proyectos/MostrarProyectoXId";
 import MostrarProyectoXIdAvances from "pages/proyectos/MostrarProyectoXIdAvances";
 import AuthLayout from "layouts/AuthLayout";
 import Register from "pages/auth/register";
-import IndexProyectosUsuarios from "pages/proyectosUsuarios";
+// Proyectos Usuarios
+import IndexProyectosUsuarios from "pages/proyectosUsuarios/index";
+import CrearInscripcion from "pages/proyectosUsuarios/inscripcion";
+import IndexMisProyectos from "pages/misProyectosUsuario";
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -46,9 +51,18 @@ function App() {
               <Route path="page2" element={<Page2 />} />
               <Route path="/proyectos" element={<ObtenerProyectos />} />
               <Route
-                path="/proyectosUsuarios"
+                path="/proyectosUsuarios/index"
                 element={<IndexProyectosUsuarios />}
               />
+              <Route
+                path="/proyectosUsuarios/inscripcion/:_id"
+                element={<CrearInscripcion />}
+              />
+              <Route
+                path="/misProyectos/index"
+                element={<IndexMisProyectos />}
+              />
+
               <Route
                 path="/proyecto/mostrar/:_id"
                 element={<MostrarProyectoXId />}

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_PROYECTOS_USUARIO } from "graphql/proyectosUsuarios/queries";
+import { GET_PROYECTOS_USUARIO } from "graphql/inscripciones/queries";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
@@ -18,11 +18,12 @@ const IndexProyectosUsuarios = () => {
     }
   }, [error]);
 
-  if (loading) return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
+  if (loading)
+    return <h1 className="text-center display-1 h1 "> Cargando!!</h1>;
 
   return (
     <div>
-      <h1 className="text-center display-1 h1 pt-10">Proyectos</h1>
+      <h1 className="text-center display-1 h1 pt-10 ">Proyectos</h1>
       <div className="container pt-10">
         <table className="table table-striped table-hover align-middle table-bordered ">
           <thead className="table-primary">
@@ -74,9 +75,12 @@ const IndexProyectosUsuarios = () => {
                     <td className="text-center">{u.fase}</td>
                     <td className="text-center">{u.lider.nombre}</td>
                     <td className="text-center">{u.lider.correo}</td>
-                    <td>
-                      <Link to={`/proyectosUsuarios/inscripciones${u._id}`}>
-                        <i className="far fa-clipboard input-group justify-content-around "></i>
+                    <td
+                      class="d-flex justify-content-around align-items-center"
+                      style={{ color: "#1B9696", height: "75px" }}
+                    >
+                      <Link to={`/proyectosUsuarios/inscripcion/${u._id}`}>
+                        <i className="fas fa-calendar-check input-group justify-content-around "></i>
                       </Link>
                     </td>
                   </tr>
