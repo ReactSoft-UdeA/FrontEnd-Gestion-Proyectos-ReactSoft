@@ -1,72 +1,130 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PrivateLayout from "layouts/PrivateLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from "context/userContext";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-// import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import {
+  ApolloProvider,
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+//ADMINISTRADOR
+import IndexProyectosAdmin from "pages/proyectosAdmin";
+//LIDER
+import IndexProyectosLider from "pages/proyectosLider/index";
+
+//ESTUDIANTE
+import IndexProyectosEstudiante from "pages/proyectosEstudiante";
+
 import Index from "pages/Index";
 import Page2 from "pages/Page2";
-import ObtenerProyectos from "pages/proyectos/ObtenerProyectos";
-import IndexCategory1 from "pages/category1/Index";
-import Category1 from "pages/category1/CategoryPage1";
-import "styles/globals.css";
+
 import IndexUsuarios from "pages/usuarios";
 import EditarUsuario from "pages/usuarios/editar";
-import MostrarProyectoXId from "pages/proyectos/MostrarProyectoXId";
-import MostrarProyectoXIdAvances from "pages/proyectos/MostrarProyectoXIdAvances";
 import AuthLayout from "layouts/AuthLayout";
 import Register from "pages/auth/register";
-import IndexProyectosUsuarios from "pages/proyectosUsuarios";
+import Login from "pages/auth/login";
+import { AuthContext } from "context/authContext";
+import IndexProyectos from "pages/proyectos/Index";
+import jwt_decode from "jwt-decode";
+import "styles/globals.css";
+import "styles/tabla.css";
+import NuevoProyecto from "pages/proyectos/NuevoProyecto";
+import IndexInscripciones from "pages/inscripciones";
 
 // import PrivateRoute from 'components/PrivateRoute';
 
-//funcion para pasar la url del servidor de apollo, ademas sirven para agregar los tokens del backend
-// const httpLink = createHttpLink ({
-//   uri: 'https://servidor-graphql-mintic-leo.herokuapp.com/graphql'
-// });
-
-// crear una variable del cliens de apollo
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = JSON.parse(localStorage.getItem("token"));
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+const client = new ApolloClient({
   cache: new InMemoryCache(),
+  link: authLink.concat(httpLink),
 });
 
 function App() {
   const [userData, setUserData] = useState({});
+  const [authToken, setAuthToken] = useState("");
+
+  const setToken = (token) => {
+    console.log("set token", token);
+    setAuthToken(token);
+    if (token) {
+      localStorage.setItem("token", JSON.stringify(token));
+    } else {
+      localStorage.removeItem("token");
+    }
+  };
+
+  useEffect(() => {
+    if (authToken) {
+      const decoded = jwt_decode(authToken);
+      setUserData({
+        _id: decoded._id,
+        nombre: decoded.nombre,
+        apellido: decoded.apellido,
+        identificacion: decoded.identificacion,
+        correo: decoded.correo,
+        rol: decoded.rol,
+      });
+    }
+  }, [authToken]);
 
   return (
     <ApolloProvider client={client}>
-      <UserContext.Provider value={{ userData, setUserData }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<PrivateLayout />}>
-              <Route path="" element={<Index />} />
-              <Route path="/usuarios" element={<IndexUsuarios />} />
-              <Route path="/usuarios/editar/:_id" element={<EditarUsuario />} />
-              <Route path="page2" element={<Page2 />} />
-              <Route path="/proyectos" element={<ObtenerProyectos />} />
-              <Route
-                path="/proyectosUsuarios"
-                element={<IndexProyectosUsuarios />}
-              />
-              <Route
-                path="/proyecto/mostrar/:_id"
-                element={<MostrarProyectoXId />}
-              />
-              <Route
-                path="/proyecto/detalle/:_id"
-                element={<MostrarProyectoXIdAvances />}
-              />
-              <Route path="/inscripciones" element={<MostrarProyectoXId />} />
-              <Route path="category1" element={<IndexCategory1 />} />
-              <Route path="category1/page1" element={<Category1 />} />
-            </Route>
-            <Route path="/auth" element={<AuthLayout />}>
-              <Route path="register" element={<Register />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </UserContext.Provider>
+      <AuthContext.Provider value={{ authToken, setAuthToken, setToken }}>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<PrivateLayout />}>
+                <Route path="" element={<Index />} />
+                <Route path="/usuarios" element={<IndexUsuarios />} />
+                {/* ADMINISTRADOR */}
+                <Route
+                  path="/usuarios/editar/:_id"
+                  element={<EditarUsuario />}
+                />
+                <Route
+                  path="/proyectosAdmin"
+                  element={<IndexProyectosAdmin />}
+                />
+                {/* LIDER */}
+                <Route
+                  path="/proyectosLider"
+                  element={<IndexProyectosLider />}
+                />
+                {/* ESTUDIANTE */}
+                <Route
+                  path="/proyectosEstudiante"
+                  element={<IndexProyectosEstudiante />}
+                />
+                <Route path="/proyectos" element={<IndexProyectos />} />
+                <Route path="/proyectos/nuevo" element={<NuevoProyecto />} />
+                <Route path="/inscripciones" element={<IndexInscripciones />} />
+                <Route path="page2" element={<Page2 />} />
+              </Route>
+              <Route path="/auth" element={<AuthLayout />}>
+                <Route path="register" element={<Register />} />
+                <Route path="login" element={<Login />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </UserContext.Provider>
+      </AuthContext.Provider>
     </ApolloProvider>
   );
 }

@@ -1,25 +1,68 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "context/authContext";
+import PrivateComponent from "./PrivateComponent";
 
 const SidebarLinks = () => {
   return (
     <ul className="mt-12">
       <SidebarRoute to="" title="Inicio" icon="fas fa-home" />
-      <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-user" />
-      {/* <SidebarRoute to="/page2" title="Pagina2" icon="fas fa-smile-wink" /> */}
+      {/* ADMIN */}
+      <PrivateComponent roleList={["ADMINISTRADOR"]}>
+        <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-user" />
+        <SidebarRoute
+          to="/proyectosAdmin"
+          title="Proyectos-Admin"
+          icon="fas fa-clipboard-check"
+        />
+      </PrivateComponent>
       <SidebarRoute
         to="/proyectos"
-        title="Proyectos-Lider"
-        icon="fas fa-clipboard-check"
+        title="Proyectos"
+        icon="fas fa-smile-wink"
       />
-      <SidebarRoute
-        to="/proyectosUsuarios"
-        title="Proyectos-Usuario"
-        icon="fas fa-clipboard-check"
-      />
-      {/* <SidebarRoute to="/category1" title="Catego 1" icon="fab fa-amazon" /> */}
-      <SidebarRoute to="/category1/page1" title="En Construccion" icon="fas fa-hard-hat" />
+
+      {/* LIDER */}
+      <PrivateComponent roleList={["LIDER"]}>
+        <SidebarRoute
+          to="/inscripciones"
+          title="Aprobacion Inscripciones"
+          icon="fas fa-user"
+        />
+        <SidebarRoute
+          to="/proyectosLider"
+          title="Proyectos-Lider"
+          icon="fas fa-clipboard-check"
+        />
+      </PrivateComponent>
+      {/* ESTUDIANTE */}
+      <PrivateComponent roleList={["ESTUDIANTE"]}>
+        <SidebarRoute
+          to="/proyectosEstudiante"
+          title="Proyectos-Estudiante"
+          icon="fas fa-clipboard-check"
+        />
+      </PrivateComponent>
+      <Logout />
     </ul>
+  );
+};
+
+const Logout = () => {
+  const { setToken } = useAuth();
+  const deleteToken = () => {
+    console.log("eliminar token");
+    setToken(null);
+  };
+  return (
+    <li onClick={() => deleteToken()}>
+      <NavLink to="/auth/login" className="sidebar-route text-red-700">
+        <div className="flex items-center">
+          <i className="fas fa-sign-out-alt" />
+          <span className="text-sm  ml-2">Cerrar Sesión</span>
+        </div>
+      </NavLink>
+    </li>
   );
 };
 
@@ -41,7 +84,7 @@ const Sidebar = () => {
       {/* Sidebar starts */}
 
       <div className="sidebar hidden md:flex">
-        <div className="px-10">
+        <div className="px-8">
           <Logo />
           <SidebarLinks />
         </div>
@@ -82,8 +125,8 @@ const SidebarRoute = ({ to, title, icon }) => {
         to={to}
         className={({ isActive }) =>
           isActive
-            ? "sidebar-route text-white bg-blue-400"
-            : "sidebar-route text-gray-900 hover:text-white hover:bg-gray-400"
+            ? "sidebar-route text-white bg-indigo-700"
+            : "sidebar-route text-gray-900 hover:text-white hover:bg-indigo-400"
         }
       >
         <div className="flex items-center">

@@ -7,7 +7,7 @@ const REGISTRO = gql`
     $identificacion: String!
     $correo: String!
     $rol: Enum_Rol!
-    $clave: String!
+    $password: String!
   ) {
     registro(
       nombre: $nombre
@@ -15,12 +15,30 @@ const REGISTRO = gql`
       identificacion: $identificacion
       correo: $correo
       rol: $rol
-      clave: $clave
+      password: $password
     ) {
-        token
-        error
+      token
+      error
     }
   }
 `;
 
-export {REGISTRO};
+const LOGIN = gql`
+  mutation Login($correo: String!, $password: String!) {
+    login(correo: $correo, password: $password) {
+      token
+      error
+    }
+  }
+`;
+
+const REFRESH_TOKEN = gql`
+  mutation RefreshToken {
+    refreshToken {
+      token
+      error
+    }
+  }
+`;
+
+export { REGISTRO, LOGIN, REFRESH_TOKEN };
