@@ -18,7 +18,7 @@ const SidebarLinks = () => {
       </PrivateComponent>
       <SidebarRoute
         to="/proyectos"
-        title="Proyectos"
+        title="Proyectos-muestra"
         icon="fas fa-smile-wink"
       />
 

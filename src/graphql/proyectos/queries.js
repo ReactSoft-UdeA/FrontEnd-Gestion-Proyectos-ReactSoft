@@ -24,4 +24,19 @@ const PROYECTOS = gql`
   }
 `;
 
-export { PROYECTOS };
+const GET_PROYECTO_INSCRIPCION = gql`
+  query ProyectosPorId($_id: String!) {
+    ProyectosPorId(_id: $_id) {
+      _id
+      estado
+      nombre
+      objetivos {
+        _id
+        tipo
+        descripcion
+      }
+    }
+  }
+`;
+
+export { PROYECTOS, GET_PROYECTO_INSCRIPCION };
