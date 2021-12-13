@@ -10,4 +10,9 @@ const Enum_Rol = {
     NO_AUTORIZADO: 'No autorizado',
   };
   
-  export { Enum_Rol, Enum_EstadoUsuario };
+  const Enum_TipoObjetivo = {
+    GENERAL: 'General',
+    ESPECIFICO: 'Especifico',
+  }
+
+  export { Enum_Rol, Enum_EstadoUsuario, Enum_TipoObjetivo };

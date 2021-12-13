@@ -17,6 +17,7 @@ import MostrarProyectoXIdAvances from "pages/proyectos/MostrarProyectoXIdAvances
 import AuthLayout from "layouts/AuthLayout";
 import Register from "pages/auth/register";
 import IndexProyectosUsuarios from "pages/proyectosUsuarios";
+import NuevoProyecto from "pages/proyectos/Nuevoproyecto";
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -45,6 +46,7 @@ function App() {
               <Route path="/usuarios/editar/:_id" element={<EditarUsuario />} />
               <Route path="page2" element={<Page2 />} />
               <Route path="/proyectos" element={<ObtenerProyectos />} />
+              <Route path="/proyectos/nuevo" element={<NuevoProyecto />} />
               <Route
                 path="/proyectosUsuarios"
                 element={<IndexProyectosUsuarios />}
