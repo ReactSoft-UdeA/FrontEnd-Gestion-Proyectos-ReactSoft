@@ -8,11 +8,13 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { REGISTRO } from 'graphql/auth/mutation';
 import { useNavigate } from 'react-router';
+import { useAut } from 'context/autContext';
+
 
 
 
 const Register = () => {
-
+    const {setToken} = useAut();
     const navigate = useNavigate();
 
     const { form, formData, updateFormData } = useFormData();
@@ -29,11 +31,11 @@ const Register = () => {
         console.log('data mutation', dataMutation);
         if (dataMutation) {
           if (dataMutation.registro.token) {
-            localStorage.setItem('token', dataMutation.registro.token);
+            setToken(dataMutation.registro.token);
             navigate('/');
           }
         }
-      }, [dataMutation]);
+      }, [dataMutation, setToken, navigate]);
 
     return (
         <div className='flex flex-col h-full w-full items-center justify-center'>
