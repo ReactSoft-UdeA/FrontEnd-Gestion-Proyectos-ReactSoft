@@ -29,20 +29,22 @@ const IndexProyectos = () => {
 
   if (queryData.Proyectos) {
     return (
-      <div className='p-10 flex flex-col'>
-        <div className='flex w-full items-center justify-center'>
-          <h1 className='text-2xl font-bold text-gray-900'>Lista de Proyectos</h1>
-        </div>
-        <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
-          <div className='my-2 self-end'>
-            <button className='bg-indigo-500 text-gray-50 p-2 rounded-lg shadow-lg hover:bg-indigo-400'>
-              <Link to='/proyectos/nuevo'>Crear nuevo proyecto</Link>
-            </button>
+      <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
+        <div className='p-10 flex flex-col'>
+          <div className='flex w-full items-center justify-center'>
+            <h1 className='text-7xl text-gray-900 text-white font-medium tracking-tight'>Lista de Proyectos</h1>
           </div>
-        </PrivateComponent>
-        {queryData.Proyectos.map((proyecto) => {
-          return <AccordionProyecto proyecto={proyecto} />;
-        })}
+          <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
+            <div className='my-2 self-end'>
+              <button className='bg-indigo-500 text-gray-50 p-2 rounded-lg shadow-lg hover:bg-indigo-400'>
+                <Link to='/proyectos/nuevo'>Crear nuevo proyecto</Link>
+              </button>
+            </div>
+          </PrivateComponent>
+          {queryData.Proyectos.map((proyecto) => {
+            return <AccordionProyecto proyecto={proyecto} />;
+          })}
+        </div>
       </div>
     );
   }

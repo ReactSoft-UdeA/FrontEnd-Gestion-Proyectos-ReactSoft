@@ -54,22 +54,24 @@ const NuevoProyecto = () => {
   if (loading) return <div>...Loading</div>;
 
   return (
-    <div className='p-10 flex flex-col items-center'>
-      <div className='self-start'>
-        <Link to='/proyectos'>
-          <i className='fas fa-arrow-left' />
-        </Link>
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
+      <div className='p-10 flex flex-col items-center'>
+        <div className='self-start'>
+          <Link to='/proyectos'>
+            <i className='fas fa-arrow-left' />
+          </Link>
+        </div>
+        <h1 className='text-7xl text-gray-900 text-white font-medium tracking-tight'>Crea tu Proyecto</h1>
+        <form ref={form} onChange={updateFormData} onSubmit={submitForm}>
+          <Input name='nombre' label='Nombre del Proyecto:' required={true} type='text' />
+          <Input name='presupuesto' label='Presupuesto del Proyecto:' required={true} type='number' />
+          <Input name='fechaInicio' label='Fecha de Inicio:' required={true} type='date' />
+          <Input name='fechaFin' label='Fecha de Fin:' required={true} type='date' />
+          <DropDown label='Líder:' options={listaUsuarios} name='lider' required={true} />
+          <Objetivos />
+          <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
+        </form>
       </div>
-      <h1 className='text-2xl font-bold text-gray-900'>Crear Nuevo Proyecto</h1>
-      <form ref={form} onChange={updateFormData} onSubmit={submitForm}>
-        <Input name='nombre' label='Nombre del Proyecto' required={true} type='text' />
-        <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
-        <Input name='fechaInicio' label='Fecha de Inicio' required={true} type='date' />
-        <Input name='fechaFin' label='Fecha de Fin' required={true} type='date' />
-        <DropDown label='Líder' options={listaUsuarios} name='lider' required={true} />
-        <Objetivos />
-        <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
-      </form>
     </div>
   );
 };
@@ -96,9 +98,10 @@ const Objetivos = () => {
   }, [listaObjetivos]);
 
   return (
+    <h1 className='text-1xl text-gray-900 text-white font-medium tracking-tight'>
     <ObjContext.Provider value={{ eliminarObjetivo }}>
       <div>
-        <span>Objetivos del Proyecto</span>
+        <span>Agregar Objetivos:</span>
         {!maxObjetivos && (
           <i
             onClick={() => setListaObjetivos([...listaObjetivos, componenteObjetivoAgregado()])}
@@ -110,6 +113,7 @@ const Objetivos = () => {
         })}
       </div>
     </ObjContext.Provider>
+    </h1>
   );
 };
 
@@ -119,14 +123,14 @@ const FormObjetivo = ({ id }) => {
     <div className='flex items-center'>
       <Input
         name={`nested||objetivos||${id}||descripcion`}
-        label='Descripción'
+        label='Descripción:'
         type='text'
         required={true}
       />
       <DropDown
         name={`nested||objetivos||${id}||tipo`}
         options={Enum_TipoObjetivo}
-        label='Tipo de Objetivo'
+        label='Tipo de Objetivo:'
         required={true}
       />
       <i
