@@ -18,6 +18,21 @@ const GET_PROYECTOS_USUARIO = gql`
   }
 `;
 
+const GET_PROYECTO_INSCRIPCION = gql`
+  query ProyectosPorId($_id: String!) {
+    ProyectosPorId(_id: $_id) {
+      _id
+      estado
+      nombre
+      objetivos {
+        _id
+        tipo
+        descripcion
+      }
+    }
+  }
+`;
+
 // const GET_PROYECTO = gql`
 //   query BuscarUserPorID($_id: String!) {
 //     Usuario(_id: $_id) {
@@ -32,4 +47,4 @@ const GET_PROYECTOS_USUARIO = gql`
 //   }
 // `;
 
-export { GET_PROYECTOS_USUARIO };
+export { GET_PROYECTOS_USUARIO, GET_PROYECTO_INSCRIPCION };
