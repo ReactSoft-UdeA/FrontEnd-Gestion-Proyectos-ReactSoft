@@ -58,7 +58,6 @@ const EditarUsuario = () => {
     }
   }, [queryError, mutationError]);
 
-  console.log(queryData);
   if (queryLoading)
     return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 

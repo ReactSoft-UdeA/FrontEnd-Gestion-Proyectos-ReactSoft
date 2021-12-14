@@ -18,6 +18,24 @@ query{
 `;
 
 const GET_PROYECTOXID =gql `
+query ($_id: String!){
+  ProyectosPorId(_id: $_id) {
+    _id
+    nombre
+    presupuesto
+    fechaInicio
+    fechaFin
+    estado
+    objetivos {
+      _id
+      descripcion
+      tipo
+    }
+  }
+}
+`;
+
+/* const GET_PROYECTOXID =gql `
 query{
   ProyectosPorId(_id: "61b0ca6258adfa7c5d6e3491") {
     _id
@@ -34,7 +52,7 @@ query{
     }
   }
 }
-`;
+`; */
 
 const GET_PROYECTOXID_DETALLE =gql `
 query{
