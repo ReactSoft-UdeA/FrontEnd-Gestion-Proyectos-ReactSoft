@@ -38,8 +38,13 @@ const SidebarLinks = () => {
       {/* ESTUDIANTE */}
       <PrivateComponent roleList={["ESTUDIANTE"]}>
         <SidebarRoute
-          to="/proyectosEstudiante"
-          title="Proyectos-Estudiante"
+          to="/proyectosEstudiante/index"
+          title="Proyectos Inscritos-Estudiante"
+          icon="fas fa-clipboard-check"
+        />
+        <SidebarRoute
+          to="/proyectosEstudiante/proyectosDisponibles"
+          title="Inscribir Proyecto-Estudiante"
           icon="fas fa-clipboard-check"
         />
       </PrivateComponent>

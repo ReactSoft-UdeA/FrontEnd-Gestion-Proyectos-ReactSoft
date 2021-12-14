@@ -16,7 +16,9 @@ import IndexProyectosLider from "pages/proyectosLider/index";
 
 //ESTUDIANTE
 import IndexProyectosEstudiante from "pages/proyectosEstudiante";
-
+import CrearInscripcion from "pages/proyectosEstudiante/inscripcion";
+import IndexProyectosDisponibles from "pages/proyectosEstudiante/proyectosDisponibles";
+//paginas ejemplo
 import Index from "pages/Index";
 import Page2 from "pages/Page2";
 
@@ -109,9 +111,21 @@ function App() {
                 />
                 {/* ESTUDIANTE */}
                 <Route
-                  path="/proyectosEstudiante"
+                  path="/proyectosEstudiante/index"
                   element={<IndexProyectosEstudiante />}
                 />
+                <Route
+                  path="/proyectosEstudiante/inscripcion/:_id"
+                  element={<CrearInscripcion />}
+                />
+                <Route
+                  path="/proyectosEstudiante/proyectosDisponibles"
+                  element={<IndexProyectosDisponibles />}
+                />
+                {/* <Route
+                  path="/proyectosEstudiante/inscripcion"
+                  element={<IndexProyectosDisponibles />}
+                /> */}
                 <Route path="/proyectos" element={<IndexProyectos />} />
                 <Route path="/proyectos/nuevo" element={<NuevoProyecto />} />
                 <Route path="/inscripciones" element={<IndexInscripciones />} />
