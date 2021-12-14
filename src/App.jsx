@@ -11,6 +11,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 //ADMINISTRADOR
 import IndexProyectosAdmin from "pages/proyectosAdmin";
+import EditarEstadoFase from "./pages/proyectosAdmin/EditarEstadoFase";
 //LIDER
 import IndexProyectosLider from "pages/proyectosLider/index";
 
@@ -101,6 +102,10 @@ function App() {
                 <Route
                   path="/proyectosAdmin"
                   element={<IndexProyectosAdmin />}
+                />
+                <Route
+                  path="/proyectosAdmin/editar/:_id"
+                  element={<EditarEstadoFase />}
                 />
                 {/* LIDER */}
                 <Route

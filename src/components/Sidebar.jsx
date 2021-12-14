@@ -16,11 +16,11 @@ const SidebarLinks = () => {
           icon="fas fa-clipboard-check"
         />
       </PrivateComponent>
-      <SidebarRoute
+      {/* <SidebarRoute
         to="/proyectos"
         title="Proyectos-muestra"
         icon="fas fa-smile-wink"
-      />
+      /> */}
 
       {/* LIDER */}
       <PrivateComponent roleList={["LIDER"]}>

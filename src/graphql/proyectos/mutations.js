@@ -31,4 +31,22 @@ const CREAR_PROYECTO = gql`
   }
 `;
 
-export { EDITAR_PROYECTO, CREAR_PROYECTO };
+const EDITAR_PROYECTO_FASE_ESTADO = gql`
+  mutation ProyectoFaseEstado(
+    $_id: String!, 
+    $estado: Enum_EstadoProyecto!, 
+    $fase: Enum_FaseProyecto!
+  ) {
+    proyectoFaseEstado(
+      _id: $_id, 
+      estado: $estado, 
+      fase: $fase
+    ) {
+      _id
+      estado
+      fase
+  }
+}
+`;
+
+export { EDITAR_PROYECTO, CREAR_PROYECTO, EDITAR_PROYECTO_FASE_ESTADO };
