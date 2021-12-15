@@ -86,6 +86,8 @@ function App() {
     }
   }, [authToken]);
 
+  // console.log("usuarioFront2:", userData._id);
+
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={{ authToken, setAuthToken, setToken }}>
@@ -106,7 +108,7 @@ function App() {
                 />
                 {/* LIDER */}
                 <Route
-                  path="/proyectosLider"
+                  path="/proyectosLider/index"
                   element={<IndexProyectosLider />}
                 />
                 {/* ESTUDIANTE */}

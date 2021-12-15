@@ -30,7 +30,7 @@ const SidebarLinks = () => {
           icon="fas fa-user"
         />
         <SidebarRoute
-          to="/proyectosLider"
+          to="/proyectosLider/index"
           title="Proyectos-Lider"
           icon="fas fa-clipboard-check"
         />
