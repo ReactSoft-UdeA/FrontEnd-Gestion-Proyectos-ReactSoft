@@ -33,7 +33,24 @@ const GET_PROYECTO_INSCRIPCION = gql`
   }
 `;
 
-// const GET_PROYECTO = gql`
+const GET_PROYECTOS_INSCRITOS = gql`
+  query ProyectosInscritos($id: String!) {
+    ProyectosInscritos(_id: $id) {
+      _id
+      estado
+      proyecto {
+        _id
+        nombre
+      }
+      estudiante {
+        nombre
+        apellido
+      }
+    }
+  }
+`;
+
+// const GET_PROYECTO = gql`;
 //   query BuscarUserPorID($_id: String!) {
 //     Usuario(_id: $_id) {
 //       _id
@@ -47,4 +64,8 @@ const GET_PROYECTO_INSCRIPCION = gql`
 //   }
 // `;
 
-export { GET_PROYECTOS_USUARIO, GET_PROYECTO_INSCRIPCION };
+export {
+  GET_PROYECTOS_USUARIO,
+  GET_PROYECTO_INSCRIPCION,
+  GET_PROYECTOS_INSCRITOS,
+};
