@@ -37,7 +37,11 @@ const MostrarProyectoXId = () => {
 
      useEffect(() => {
         if (mutationData) {
+            
+          inhabilitarInputs();
           toast.success('El proyecto se editó Exitosamente!!');
+          /* formData=0 */
+
         }
       }, [mutationData]);
 
@@ -54,12 +58,20 @@ const MostrarProyectoXId = () => {
   */   
 
     
-    
+   const inhabilitarInputs = ()=>{
+    document.querySelector(".allowEdit").disabled=true;    
+    document.querySelector("#nombreProyectoEditable").disabled=true;    
+    document.querySelector("#presupuestoId").disabled=true;    
+    document.querySelector("#estadoId").disabled=true;    
+    document.querySelector("#btnEditarProyecto").style.display="block";    
+    document.querySelector("#btnGuardarCambiosProyecto").style.display="none";
+   }     
+
+
     const habilitarEdicionProyecto = ()=>{
         document.querySelector(".allowEdit").disabled=false;    
         document.querySelector("#nombreProyectoEditable").disabled=false;    
         document.querySelector("#presupuestoId").disabled=false;    
-        document.querySelector("#estadoId").disabled=false;    
         document.querySelector("#btnEditarProyecto").style.display="none";    
         document.querySelector("#btnGuardarCambiosProyecto").style.display="block";    
     }
@@ -75,7 +87,7 @@ const MostrarProyectoXId = () => {
                 >
 
             <div class="col-lg-11 m-10 d-flex flex-wrap align-items-start">
-                <h1 class="col-lg-12"><strong>PROYECTO {_id}</strong></h1>
+                <h1 class="col-lg-12"><strong>PROYECTO</strong></h1>
                 <br/>
                 
             <div class="mb-3 col-lg-3 m-3">
@@ -144,7 +156,7 @@ const MostrarProyectoXId = () => {
                 </table>
 
                 <button type="button" id="btnEditarProyecto" class="btn btn-primary" onClick={habilitarEdicionProyecto}>Editar</button>    
-                <button type="submit" id="btnGuardarCambiosProyecto" class="btn btn-warning">Guardar cambios</button>    
+                <button disabled={Object.keys(formData).length===0} type="submit" id="btnGuardarCambiosProyecto" class="btn btn-warning">Guardar cambios</button>    
             </div>
             </form>
         </div>

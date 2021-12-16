@@ -5,11 +5,13 @@ mutation EditarProyecto(
     $_id: String!
     $nombre: String!
     $presupuesto: Float!
+    $objetivos: [actualizarObjetivo]
     ){
     editarProyecto(
         _id : $_id
         nombre : $nombre
         presupuesto : $presupuesto
+        objetivos: $objetivos
     ){
         _id
         nombre
@@ -18,6 +20,11 @@ mutation EditarProyecto(
         fechaFin
         estado
         fase
+        objetivos {
+            _id
+            descripcion
+            tipo
+        }
     }
     }
 `;
