@@ -18,4 +18,33 @@ const GET_PROYECTOS_LIDER = gql`
   }
 `;
 
-export { GET_PROYECTOS_LIDER };
+const GET_PROYECTOS_DETALLE = gql`
+  query ProyectosPorId($_id: String!) {
+    ProyectosPorId(_id: $_id) {
+      _id
+      nombre
+      presupuesto
+      fechaInicio
+      fechaFin
+      estado
+      fase
+      objetivos {
+        _id
+        descripcion
+        tipo
+      }
+      avances {
+        _id
+        fecha
+        descripcion
+      }
+      inscripciones {
+        _id
+        fechaIngreso
+        estado
+      }
+    }
+  }
+`;
+
+export { GET_PROYECTOS_LIDER, GET_PROYECTOS_DETALLE };

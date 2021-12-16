@@ -13,6 +13,7 @@ import { setContext } from "@apollo/client/link/context";
 import IndexProyectosAdmin from "pages/proyectosAdmin";
 //LIDER
 import IndexProyectosLider from "pages/proyectosLider/index";
+import ProyectosDetalle from "pages/proyectosLider/detalle";
 
 //ESTUDIANTE
 import IndexProyectosEstudiante from "pages/proyectosEstudiante";
@@ -110,6 +111,10 @@ function App() {
                 <Route
                   path="/proyectosLider/index"
                   element={<IndexProyectosLider />}
+                />
+                <Route
+                  path="/proyectosLider/detalle/:_id"
+                  element={<ProyectosDetalle />}
                 />
                 {/* ESTUDIANTE */}
                 <Route

@@ -64,7 +64,7 @@ const IndexProyectosLider = () => {
   return (
     <div>
       <PrivateRoute roleList={["LIDER"]}>
-        <h1 class="text-center display-1 h1 pt-10">Proyectos Lider</h1>
+        <h1 class="text-center display-1 h1 pt-10">Mis Proyectos</h1>
         <div class="container pt-10">
           <table class="table table-hover">
             <thead>
@@ -94,17 +94,17 @@ const IndexProyectosLider = () => {
                       <td class="text-center">{u.fase}</td>
                       <td class="text-center">{u.estado}</td>
                       <td className="text-center">{u.lider.apellido}</td>
-                      {/* <td
-                          class="d-flex justify-content-around align-items-center"
-                          style={{ color: "red", height: "75px" }}
-                        >
-                          <Link to={`/proyecto/detalle/${u._id}`}>
-                            <i class="fas fa-eye input-group justify-content-around "></i>
-                          </Link>
-                          <Link to={`/proyecto/mostrar/${u._id}`}>
-                            <i class="fas fa-pen input-group justify-content-around "></i>
-                          </Link>
-                        </td> */}
+                      <td
+                        class="d-flex justify-content-around align-items-center"
+                        style={{ color: "red", height: "75px" }}
+                      >
+                        <Link to={`/proyectosLider/detalle/${u._id}`}>
+                          <i class="fas fa-eye input-group justify-content-around "></i>
+                        </Link>
+                        {/* <Link to={`/proyecto/mostrar/${u._id}`}>
+                          <i class="fas fa-pen input-group justify-content-around "></i>
+                        </Link> */}
+                      </td>
                     </tr>
                   );
                 })}
