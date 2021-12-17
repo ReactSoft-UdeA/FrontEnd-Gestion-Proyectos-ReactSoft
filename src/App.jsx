@@ -16,9 +16,12 @@ import IndexProyectosLider from "pages/proyectosLider/index";
 import ProyectosDetalle from "pages/proyectosLider/detalle";
 
 //ESTUDIANTE
-import IndexProyectosEstudiante from "pages/proyectosEstudiante";
+import IndexProyectosEstudiante from "pages/proyectosEstudiante/index";
 import CrearInscripcion from "pages/proyectosEstudiante/inscripcion";
 import IndexProyectosDisponibles from "pages/proyectosEstudiante/proyectosDisponibles";
+import AvancesEstudiante from "pages/proyectosEstudiante/avances";
+import EditarAvance from "pages/proyectosEstudiante/editarAvance";
+import NuevoAvance from "pages/proyectosEstudiante/NuevoAvance";
 //paginas ejemplo
 import Index from "pages/Index";
 import Page2 from "pages/Page2";
@@ -120,6 +123,18 @@ function App() {
                 <Route
                   path="/proyectosEstudiante/index"
                   element={<IndexProyectosEstudiante />}
+                />
+                <Route
+                  path="/proyectosEstudiante/avances/:_id"
+                  element={<AvancesEstudiante />}
+                />
+                <Route
+                  path="/proyectosEstudiante/nuevoAvance/:_id"
+                  element={<NuevoAvance />}
+                />
+                <Route
+                  path="/proyectosEstudiante/editarAvance/:_id"
+                  element={<EditarAvance />}
                 />
                 <Route
                   path="/proyectosEstudiante/inscripcion/:_id"

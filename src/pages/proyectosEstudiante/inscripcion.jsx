@@ -1,25 +1,9 @@
-// import React from "react";
-// import PrivateRoute from "components/PrivateRoute";
-
-// const CrearInscripcion = () => {
-//   return (
-//     <div>
-//       <PrivateRoute roleList={["ESTUDIANTE"]}>
-//         <h1 className="text-center display-1 h1 pt-10 ">Inscribir Proyecto</h1>
-//       </PrivateRoute>
-//     </div>
-//   );
-// };
-
-// export default CrearInscripcion;
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PrivateRoute from "components/PrivateRoute";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_PROYECTO_INSCRIPCION } from "graphql/proyectosEstudiante/queries";
-import { GET_USUARIOS } from "graphql/usuarios/queries";
-import { CREAR_INSCRIPCION } from "graphql/inscripciones/mutaciones";
+import { CREAR_INSCRIPCION } from "graphql/proyectosEstudiante/mutations";
 import useFormData from "hooks/useFormData";
 import ButtonLoading from "components/ButtonLoading";
 import Input from "components/Input";
@@ -31,60 +15,45 @@ import { useUser } from "context/userContext";
 const CrearInscripcion = () => {
   const navigate = useNavigate();
   const { form, formData, updateFormData } = useFormData(null);
-
-  const { _id } = useParams();
   const { userData } = useUser();
-  console.log("id", _id);
+  const [IdEstudiante, setIdEstudiante] = useState("");
+  const { _id } = useParams();
+  // const navigate = useNavigate();
+
   const {
     data: queryData,
     error: queryError,
     loading: queryLoading,
   } = useQuery(GET_PROYECTO_INSCRIPCION, {
     variables: { _id },
-    // variables: { _id, ...formData },
   });
 
-  //MUTACION PARA ENVIAR DATOS
-  // const [
-  //   crearInscripcion,
-  //   { data: mutationData, loading: mutationLoading, error: mutationError },
-  // ] = useMutation(CREAR_INSCRIPCION);
+  const [
+    crearInscripcion,
+    { data: mutationData, loading: mutationLoading, error: mutationError },
+  ] = useMutation(CREAR_INSCRIPCION);
+
+  useEffect(() => {
+    console.log("data mutation", mutationData);
+  });
+
+  useEffect(() => {
+    setIdEstudiante(userData._id);
+  }, [userData]);
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("enviar datos al backend", formData);
+    crearInscripcion({
+      variables: formData,
+    });
+    // navigate("/proyectosEstudiante/index");
   };
-  // crearInscripcion({ variables: formData });
-  //   crearInscripcion({ variables: { _id, ...formData } });
-  // };
 
-  // useEffect(() => {
-  //   if (mutationData) {
-  //     toast.success("La inscripción fue exitosa!!");
-  //     navigate("/proyectosUsuarios/index");
-  //   }
-  // }, [mutationData]);
-
-  // useEffect(() => {
-  //   if (mutationError) {
-  //     toast.error("Error realizando la inscripción");
-  //   }
-
-  //   if (queryError) {
-  //     toast.error("Error consultando el proyecto");
-  //   }
-  // }, [queryError, mutationError]);
-
-  //TRAER DATOS DE USUARIO
-  // const {
-  //   data: query2Data,
-  //   error: query2Error,
-  //   loading: query2Loading,
-  // } = useQuery(GET_USUARIOS);
-
-  // useEffect(() => {
-  //   console.log("data servidor ", query2Data);
-  // }, [query2Data]);
+  useEffect(() => {
+    if (mutationData) {
+      toast.success("Inscripcion Creada Correctamente");
+    }
+  }, [mutationData]);
 
   if (queryLoading)
     return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
@@ -118,47 +87,21 @@ const CrearInscripcion = () => {
             <Input
               label="Id_Proyecto a Inscribir:"
               type="text"
-              name="_id"
-              defaultValue={queryData.ProyectosPorId[0]._id}
+              name="proyecto"
+              defaultValue={_id}
               required={true}
             />
             <Input
-              label="Estado de Proyecto a Inscribir:"
+              label="Id_Estudiante:"
               type="text"
-              name="estado"
-              defaultValue={queryData.ProyectosPorId[0].estado}
+              name="estudiante"
+              defaultValue={IdEstudiante}
               disabled
               required={true}
             />
-            {/* <Input
-          label="Correo:"
-          type="email"
-          name="correo"
-          // defaultValue={query2Data.Usuarios[0].correo}
-          defaultValue={query2Data.Usuario[0].correo}
-          required={true}
-        /> */}
-            {/* <DropDown
-          label="Estado:"
-          name="estado"
-          defaultValue={query2Data[0].map()}
-          required={true}
-        /> */}
-            {/* <DropDown
-          label="Estado:"
-          name="estado"
-          defaultValue={queryData.Usuario.estado}
-          required={true}
-          options={Enum_EstadoUsuario}
-        /> */}
-            {/* <ButtonLoading
-          disabled={Object.keys(formData).length === 0}
-          loading={mutationLoading}
-          text="Confirmar Cambio"
-        /> */}
             <ButtonLoading
-              disabled={Object.keys(formData).length === 0}
-              loading={false}
+              disabled={Object.keys(formData).length > 0}
+              // loading={false}
               text="Registrarme"
             />
           </form>

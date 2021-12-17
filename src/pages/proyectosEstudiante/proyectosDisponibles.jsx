@@ -1,20 +1,3 @@
-// import React from "react";
-// import PrivateRoute from "components/PrivateRoute";
-
-// const IndexProyectosDisponibles = () => {
-//   return (
-//     <div>
-//       <PrivateRoute roleList={["ESTUDIANTE"]}>
-//         <h1 className="text-center display-1 h1 pt-10 ">
-//           Proyectos Disponibles
-//         </h1>
-//       </PrivateRoute>
-//     </div>
-//   );
-// };
-
-// export default IndexProyectosDisponibles;
-
 import React, { useEffect } from "react";
 import PrivateRoute from "components/PrivateRoute";
 import { useQuery } from "@apollo/client";
@@ -42,10 +25,12 @@ const IndexProyectosDisponibles = () => {
   return (
     <div>
       <PrivateRoute roleList={["ESTUDIANTE"]}>
-        <h1 className="text-center display-1 h1 pt-10 ">Proyectos</h1>
+        <h1 className="text-center display-1 h1 pt-10 ">
+          Proyectos Disponibles
+        </h1>
         <div className="container pt-10">
           <table className="table table-striped table-hover align-middle table-bordered ">
-            <thead className="table-primary">
+            <thead className="tabla">
               <tr className="">
                 <th scope="col" className="text-center">
                   ID
@@ -75,7 +60,7 @@ const IndexProyectosDisponibles = () => {
                   Correo
                 </th>
                 <th scope="col" className="text-center">
-                  Inscripción
+                  Opciones
                 </th>
               </tr>
             </thead>
@@ -98,9 +83,10 @@ const IndexProyectosDisponibles = () => {
                       <td className="text-center">{u.lider.correo}</td>
                       <td
                         class="d-flex justify-content-around align-items-center"
-                        style={{ color: "#1B9696", height: "75px" }}
+                        style={{ color: "#1588B4", height: "75px" }}
                       >
                         <Link to={`/proyectosEstudiante/inscripcion/${u._id}`}>
+                          <button> Inscribirme </button>
                           <i className="fas fa-calendar-check input-group justify-content-around "></i>
                         </Link>
                       </td>

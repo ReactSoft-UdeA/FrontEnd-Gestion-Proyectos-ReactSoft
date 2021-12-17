@@ -25,3 +25,7 @@
 .tabla tr:hover {
   background-color: #ddd;
 }
+
+.fondo {
+  background-color: #0483aa;
+}

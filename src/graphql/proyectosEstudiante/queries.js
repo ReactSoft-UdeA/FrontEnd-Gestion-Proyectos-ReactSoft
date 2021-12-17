@@ -41,11 +41,44 @@ const GET_PROYECTOS_INSCRITOS = gql`
       proyecto {
         _id
         nombre
+        lider {
+          nombre
+        }
       }
       estudiante {
         nombre
         apellido
       }
+    }
+  }
+`;
+
+const GET_AVANCES = gql`
+  query FiltrarAvance($_id: String!) {
+    filtrarAvance(_id: $_id) {
+      _id
+      fecha
+      descripcion
+      proyecto {
+        nombre
+      }
+      observaciones
+      creadoPor {
+        nombre
+        apellido
+        estado
+      }
+    }
+  }
+`;
+
+const GET_AVANCE = gql`
+  query Avance($_id: String!) {
+    Avance(_id: $_id) {
+      fecha
+      descripcion
+      _id
+      observaciones
     }
   }
 `;
@@ -68,4 +101,6 @@ export {
   GET_PROYECTOS_USUARIO,
   GET_PROYECTO_INSCRIPCION,
   GET_PROYECTOS_INSCRITOS,
+  GET_AVANCES,
+  GET_AVANCE,
 };

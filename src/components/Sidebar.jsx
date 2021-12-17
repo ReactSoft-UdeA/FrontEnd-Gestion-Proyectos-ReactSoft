@@ -16,11 +16,11 @@ const SidebarLinks = () => {
           icon="fas fa-clipboard-check"
         />
       </PrivateComponent>
-      <SidebarRoute
+      {/* <SidebarRoute
         to="/proyectos"
         title="Proyectos-muestra"
         icon="fas fa-smile-wink"
-      />
+      /> */}
 
       {/* LIDER */}
       <PrivateComponent roleList={["LIDER"]}>
@@ -39,12 +39,12 @@ const SidebarLinks = () => {
       <PrivateComponent roleList={["ESTUDIANTE"]}>
         <SidebarRoute
           to="/proyectosEstudiante/index"
-          title="Proyectos Inscritos-Estudiante"
+          title="Proyectos Inscritos"
           icon="fas fa-clipboard-check"
         />
         <SidebarRoute
           to="/proyectosEstudiante/proyectosDisponibles"
-          title="Inscribir Proyecto-Estudiante"
+          title="Inscribir Proyecto"
           icon="fas fa-clipboard-check"
         />
       </PrivateComponent>

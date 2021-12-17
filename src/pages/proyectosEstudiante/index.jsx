@@ -1,20 +1,3 @@
-// import React from "react";
-// import PrivateRoute from "components/PrivateRoute";
-
-// const IndexProyectosEstudiante = () => {
-//   return (
-//     <div>
-//       <PrivateRoute roleList={["ESTUDIANTE"]}>
-//         <h1 className="text-center display-1 h1 pt-10 ">
-//           Traer Proyectos Inscritos Estudiante
-//         </h1>
-//       </PrivateRoute>
-//     </div>
-//   );
-// };
-
-// export default IndexProyectosEstudiante;
-
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_PROYECTOS_INSCRITOS } from "graphql/proyectosEstudiante/queries";
@@ -31,11 +14,7 @@ const IndexProyectosEstudiante = () => {
     // const liderId = '"' + userData._id + '"';
     // console.log("IdFront", liderId);
     setIdEstudiante(userData._id);
-    // console.log("IdState", IdLider);
   }, [userData]);
-
-  //   setIdLider(userData._id);
-  //   console.log("IdState2", IdLider);
 
   //FUNCION PARA TRAER PROYECTOS POR LIDER
   const { data, loading, error } = useQuery(GET_PROYECTOS_INSCRITOS, {
@@ -62,42 +41,72 @@ const IndexProyectosEstudiante = () => {
   return (
     <div>
       <PrivateRoute roleList={["ESTUDIANTE"]}>
-        <h1 class="text-center display-1 h1 pt-10">Mis Proyectos Inscritos</h1>
+        <br />
+        <br />
+        <div className=" bg-gray-100 text-center display-1 h1 pt-15">
+          <h1>Mis Proyectos Inscritos </h1>
+        </div>
+        {/* <h1 class="text-center display-1 h1 pt-10">Mis Proyectos Inscritos</h1> */}
         <div class="container pt-10">
-          <table class="table table-hover">
-            <thead>
+          <table class="table table-striped table-hover align-middle table-bordered ">
+            <thead className="tabla">
               <tr>
-                <th scope="col">ID INSCRIPCION</th>
-                <th scope="col">ID PROYECTO</th>
-                <th scope="col">NOMBRE PROYECTO</th>
-                <th scope="col">ESTADO INSCRIPCION</th>
-                <th scope="col">NOMBRE </th>
-                <th scope="col">APELLIDO </th>
-                <th scope="col">OPCIONES</th>
+                <th scope="col" className="text-center">
+                  ID Proyecto
+                </th>
+                <th scope="col" className="text-center">
+                  Nombre Proyecto
+                </th>
+                <th scope="col" className="text-center">
+                  Lider
+                </th>
+                <th scope="col" className="text-center">
+                  ID Inscripción
+                </th>
+                <th scope="col" className="text-center">
+                  Estado Inscripción
+                </th>
+                <th scope="col" className="text-center">
+                  Nombre{" "}
+                </th>
+                <th scope="col" className="text-center">
+                  Apellido{" "}
+                </th>
+                <th scope="col" className="text-center">
+                  Avances
+                </th>
               </tr>
             </thead>
             <tbody>
               {data &&
                 data.ProyectosInscritos.map((u) => {
                   return (
+                    // cambiar id de URL
                     <tr key={u._id}>
-                      <td class="text-center">{u._id.slice(20)}</td>
                       <td class="text-center">{u.proyecto._id.slice(20)}</td>
                       <td class="text-center">{u.proyecto.nombre}</td>
+                      <td class="text-center">{u.proyecto.lider.nombre}</td>
+                      <td class="text-center">{u._id.slice(20)}</td>
                       <td class="text-center">{u.estado}</td>
                       <td class="text-center">{u.estudiante.nombre}</td>
                       <td class="text-center">{u.estudiante.apellido}</td>
-                      {/* <td
+                      <td
                         class="d-flex justify-content-around align-items-center"
-                        style={{ color: "red", height: "75px" }}
+                        style={{ color: "#1588B4", height: "65px" }}
                       >
-                        <Link to={`/proyectosLider/detalle/${u._id}`}>
+                        <Link
+                          to={`/proyectosEstudiante/avances/${u.proyecto._id}`}
+                        >
+                          <button> Ver Avances</button>
                           <i class="fas fa-eye input-group justify-content-around "></i>
                         </Link>
-                        <Link to={`/proyecto/mostrar/${u._id}`}>
-                          <i class="fas fa-pen input-group justify-content-around "></i>
+                        <Link
+                          to={`/proyectosEstudiante/nuevoAvance/${u.proyecto._id}`}
+                        >
+                          <button> Crear Avance</button>
+                          <i class="fas fa-pencil-alt input-group justify-content-around "></i>
                         </Link>
-                      </td> */}
+                      </td>
                     </tr>
                   );
                 })}
