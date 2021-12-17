@@ -49,15 +49,15 @@ const AvancesEstudiante = () => {
   //   }
   // }, [mutationData]);
 
-  useEffect(() => {
-    //   if (mutationError) {
-    //     toast.error("Error realizando la inscripción");
-    //   }
-
-    if (queryError) {
-      toast.error("Error consultando el proyecto");
-    }
-  }, [queryError]);
+  // useEffect(() => {
+  //   if (mutationError) {
+  //     toast.error("Error realizando la inscripción");
+  //   }
+  // <h1>Error Consultando avances</h1>;
+  //   if (queryError) {
+  //     toast.error("Error consultando el proyecto");
+  //   }
+  // }, [queryError]);
 
   //TRAER DATOS DE USUARIO
   // const {
@@ -101,7 +101,7 @@ const AvancesEstudiante = () => {
           {/* formulario */}
           <div className=" bg-gray-100 text-center display-5">
             <h5>Proyecto:</h5>
-            <h5>{queryData.filtrarAvance[0].proyecto.nombre}</h5>
+            {/* <h5>{queryData.filtrarAvance[0].proyecto.nombre}</h5> */}
           </div>
 
           <br />
