@@ -18,6 +18,7 @@ const PROYECTOS = gql`
         estado
         estudiante {
           _id
+          nombre
         }
       }
     }

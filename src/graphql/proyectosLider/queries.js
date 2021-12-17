@@ -40,6 +40,13 @@ const GET_PROYECTOS_DETALLE = gql`
       }
       inscripciones {
         _id
+        estudiante {
+        _id
+        nombre
+        apellido
+        identificacion
+        correo
+      }
         fechaIngreso
         estado
       }

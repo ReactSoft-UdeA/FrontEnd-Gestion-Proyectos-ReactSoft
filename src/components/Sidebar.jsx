@@ -24,11 +24,11 @@ const SidebarLinks = () => {
 
       {/* LIDER */}
       <PrivateComponent roleList={["LIDER"]}>
-        <SidebarRoute
+        {/* <SidebarRoute
           to="/inscripciones"
           title="Aprobacion Inscripciones"
           icon="fas fa-user"
-        />
+        /> */}
         <SidebarRoute
           to="/proyectosLider/index"
           title="Proyectos-Lider"
