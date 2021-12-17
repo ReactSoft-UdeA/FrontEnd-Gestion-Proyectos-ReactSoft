@@ -114,7 +114,7 @@ const CrearInscripcion = () => {
             </h2>
 
             {/* <table class="table table-hover"> */}
-            <table class="table table-striped table-hover align-middle table-bordered">
+            <table class="table table-striped table-hover align-middle table-bordered bg-gray-200">
               <thead>
                 <tr>
                   <th scope="col" className="text-center">

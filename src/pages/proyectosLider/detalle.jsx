@@ -288,12 +288,16 @@ const ProyectosDetalle = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div class="accordion-body">
-                  <table class="table table-hover">
-                    <thead>
+                  <table className="table table-striped table-hover align-middle table-bordered bg-gray-100">
+                    <thead className="tabla">
                       <tr>
-                        <th scope="col">ID OBJETIVO</th>
-                        <th scope="col">TIPO</th>
-                        <th scope="col">DESCRIPCIÓN</th>
+                        <th scope="col" className="text-center ">
+                          ID OBJETIVO
+                        </th>
+                        {/* <th scope="col">TIPO</th> */}
+                        <th scope="col" className="text-center">
+                          DESCRIPCIÓN
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -302,7 +306,7 @@ const ProyectosDetalle = () => {
                           return (
                             <tr key={u._id}>
                               <td class="text-center">{u._id.slice(20)}</td>
-                              <td class="text-center">{u.fechaAvance}</td>
+                              {/* <td class="text-center">{u.fechaAvance}</td> */}
                               <td class="text-center">{u.descripcion}</td>
                             </tr>
                           );

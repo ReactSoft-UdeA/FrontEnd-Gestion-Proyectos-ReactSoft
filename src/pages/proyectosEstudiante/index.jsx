@@ -99,18 +99,29 @@ const IndexProyectosEstudiante = () => {
                         class="d-flex justify-content-around align-items-center"
                         style={{ color: "#1588B4", height: "65px" }}
                       >
-                        <Link
-                          to={`/proyectosEstudiante/avances/${u.proyecto._id}`}
-                        >
-                          <button> Ver Avances</button>
-                          <i class="fas fa-eye input-group justify-content-around "></i>
-                        </Link>
-                        <Link
-                          to={`/proyectosEstudiante/nuevoAvance/${u.proyecto._id}`}
-                        >
-                          <button> Crear Avance</button>
-                          <i class="fas fa-pencil-alt input-group justify-content-around "></i>
-                        </Link>
+                        {u.estado === "ACEPTADO" && (
+                          <Link
+                            to={`/proyectosEstudiante/avances/${u.proyecto._id}`}
+                          >
+                            <button> Ver Avances</button>
+                            <i class="fas fa-eye input-group justify-content-around "></i>
+                          </Link>
+                        )}
+                        {u.estado === "ACEPTADO" && (
+                          <Link
+                            to={`/proyectosEstudiante/nuevoAvance/${u.proyecto._id}`}
+                          >
+                            <button> Crear Avance</button>
+                            <i class="fas fa-pencil-alt input-group justify-content-around "></i>
+                          </Link>
+                        )}
+
+                        {u.estado === "PENDIENTE" && (
+                          <span>Solicitud Pendiente</span>
+                        )}
+                        {u.estado === "RECHAZADO" && (
+                          <span> Solicitud Declinada</span>
+                        )}
                       </td>
                     </tr>
                   );

@@ -75,8 +75,10 @@ const IndexProyectosDisponibles = () => {
                       {/* <td className="text-center">{u._id.slice(20)}</td> */}
                       <td className="text-center">{u.nombre}</td>
                       <td className="text-center">{u.presupuesto}</td>
-                      <td className="text-center">{u.fechaInicio}</td>
-                      <td className="text-center">{u.fechaFin}</td>
+                      <td className="text-center">
+                        {u.fechaInicio.slice(0, 10)}
+                      </td>
+                      <td className="text-center">{u.fechaFin.slice(0, 10)}</td>
                       <td className="text-center">{u.estado}</td>
                       <td className="text-center">{u.fase}</td>
                       <td className="text-center">{u.lider.nombre}</td>
@@ -85,10 +87,17 @@ const IndexProyectosDisponibles = () => {
                         class="d-flex justify-content-around align-items-center"
                         style={{ color: "#1588B4", height: "75px" }}
                       >
-                        <Link to={`/proyectosEstudiante/inscripcion/${u._id}`}>
-                          <button> Inscribirme </button>
-                          <i className="fas fa-calendar-check input-group justify-content-around "></i>
-                        </Link>
+                        {u.estado === "ACTIVO" && (
+                          <Link
+                            to={`/proyectosEstudiante/inscripcion/${u._id}`}
+                          >
+                            <button> Inscribirme </button>
+                            <i className="fas fa-calendar-check input-group justify-content-around "></i>
+                          </Link>
+                        )}
+                        {u.estado === "INACTIVO" && (
+                          <span>Proyecto Inactivo</span>
+                        )}
                       </td>
                     </tr>
                   );
