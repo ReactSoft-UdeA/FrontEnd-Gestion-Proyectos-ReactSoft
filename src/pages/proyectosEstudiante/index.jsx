@@ -30,6 +30,11 @@ const IndexProyectosEstudiante = () => {
     console.log("data servidor ", data);
   }, [data]);
 
+  // try {
+
+  // } catch (error) {
+
+  // }
   useEffect(() => {
     if (error) {
       toast.error("Error en la consulta de Proyectos");

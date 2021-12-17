@@ -49,15 +49,15 @@ const AvancesEstudiante = () => {
   //   }
   // }, [mutationData]);
 
-  // useEffect(() => {
-  //   if (mutationError) {
-  //     toast.error("Error realizando la inscripción");
-  //   }
+  useEffect(() => {
+    //   if (mutationError) {
+    //     toast.error("Error realizando la inscripción");
+    //   }
 
-  //   if (queryError) {
-  //     toast.error("Error consultando el proyecto");
-  //   }
-  // }, [queryError, mutationError]);
+    if (queryError) {
+      toast.error("Error consultando el proyecto");
+    }
+  }, [queryError]);
 
   //TRAER DATOS DE USUARIO
   // const {

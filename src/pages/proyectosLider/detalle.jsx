@@ -21,10 +21,11 @@ import { useQuery, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
 import { GET_PROYECTOS_DETALLE } from "graphql/proyectosLider/queries";
 import PrivateRoute from "components/PrivateRoute";
-import { APROBAR_INSCRIPCION, RECHAZAR_INSCRIPCION } from "graphql/inscripciones/mutaciones";
+import {
+  APROBAR_INSCRIPCION,
+  RECHAZAR_INSCRIPCION,
+} from "graphql/inscripciones/mutaciones";
 import ButtonLoading from "components/ButtonLoading";
-
-
 
 const ProyectosDetalle = () => {
   const { _id } = useParams();
@@ -58,10 +59,16 @@ const ProyectosDetalle = () => {
     }, [queryError, mutationError]);
   */
 
-  const [aprobarInscripcion, { data: aprobarData, loading: aprobarLoading , error: aprobarError, refetch }] =
-  useMutation(APROBAR_INSCRIPCION);
+  const [
+    aprobarInscripcion,
+    {
+      data: aprobarData,
+      loading: aprobarLoading,
+      error: aprobarError,
+      refetch,
+    },
+  ] = useMutation(APROBAR_INSCRIPCION);
 
-  
   const cambiarEstadoInscripcion = (idInscripcion) => {
     aprobarInscripcion({
       variables: {
@@ -83,12 +90,11 @@ const ProyectosDetalle = () => {
     }
   }, [aprobarError]);
 
-  
-  
-  const [rechazarInscripcion, { data: rechazarData, loading: rechazarLoading , error: rechazarError }] =
-  useMutation(RECHAZAR_INSCRIPCION);
-  
-  
+  const [
+    rechazarInscripcion,
+    { data: rechazarData, loading: rechazarLoading, error: rechazarError },
+  ] = useMutation(RECHAZAR_INSCRIPCION);
+
   const cambiarRechazoInscripcion = (idInscripcion) => {
     rechazarInscripcion({
       variables: {
@@ -96,29 +102,29 @@ const ProyectosDetalle = () => {
       },
     });
   };
-  
+
   useEffect(() => {
     if (rechazarData) {
       toast.success("Inscripcion Rechazada con exito");
       // refetch();
     }
   }, [rechazarData]);
-  
+
   useEffect(() => {
     if (rechazarError) {
       toast.error("Error rechazando la inscripcion");
     }
   }, [rechazarError]);
-  
+
   if (rechazarLoading)
-  return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
+    return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 
   if (aprobarLoading)
-  return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
-  
+    return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
+
   if (queryLoading2)
-  return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
-  
+    return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
+
   return (
     <div>
       <PrivateRoute roleList={["LIDER"]}>
@@ -280,7 +286,6 @@ const ProyectosDetalle = () => {
                 class="accordion-collapse collapse"
                 aria-labelledby="headingThree"
                 data-bs-parent="#accordionExample"
-                
               >
                 <div class="accordion-body">
                   <table class="table table-hover">
@@ -343,10 +348,26 @@ const ProyectosDetalle = () => {
                         queryData2.ProyectosPorId[0].inscripciones.map((u) => {
                           return (
                             <tr key={u._id}>
-                              <td class="text-center align-middle">{u._id.slice(20)}</td>
-                              <td class="text-center align-middle">{[u.estudiante._id.slice(20), " - ",u.estudiante.nombre, " ", u.estudiante.apellido, " - ",u.estudiante.correo]}</td>
-                              <td class="text-center align-middle">{u.fechaIngreso}</td>
-                              <td class="text-center align-middle">{u.estado}</td>
+                              <td class="text-center align-middle">
+                                {u._id.slice(20)}
+                              </td>
+                              <td class="text-center align-middle">
+                                {[
+                                  u.estudiante._id.slice(20),
+                                  " - ",
+                                  u.estudiante.nombre,
+                                  " ",
+                                  u.estudiante.apellido,
+                                  " - ",
+                                  u.estudiante.correo,
+                                ]}
+                              </td>
+                              <td class="text-center align-middle">
+                                {u.fechaIngreso}
+                              </td>
+                              <td class="text-center align-middle">
+                                {u.estado}
+                              </td>
                               <td class="text-center">
                                 {u.estado === "PENDIENTE" && (
                                   <ButtonLoading
@@ -357,7 +378,7 @@ const ProyectosDetalle = () => {
                                     loading={false}
                                     disabled={false}
                                   />
-                                  )}
+                                )}
                                 {u.estado === "RECHAZADO" && (
                                   <ButtonLoading
                                     onClick={() => {
@@ -367,9 +388,8 @@ const ProyectosDetalle = () => {
                                     loading={false}
                                     disabled={false}
                                   />
-                                  )}
+                                )}
                                 {u.estado === "ACEPTADO" && (
- 
                                   <ButtonLoading
                                     onClick={() => {
                                       cambiarRechazoInscripcion(u._id);
@@ -378,8 +398,7 @@ const ProyectosDetalle = () => {
                                     loading={false}
                                     disabled={false}
                                   />
-                                  )}
-
+                                )}
                               </td>
                             </tr>
                           );
@@ -389,18 +408,11 @@ const ProyectosDetalle = () => {
                 </div>
               </div>
             </div>
-
-
-
-
           </div>
         </div>
       </PrivateRoute>
     </div>
   );
 };
-
-
-
 
 export default ProyectosDetalle;
