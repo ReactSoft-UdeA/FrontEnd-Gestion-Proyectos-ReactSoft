@@ -7,10 +7,11 @@ import { toast } from 'react-toastify';
 
 const IndexProyectosAdmin = () => {
 
-  const {data, error, loading} = useQuery(GET_PROYECTOS);
+  const {data, error, loading, refetch} = useQuery(GET_PROYECTOS);
 
   useEffect(() => {
     console.log('Data Servidor', data)
+    refetch();
   }, [data]);
 
   useEffect(() => {

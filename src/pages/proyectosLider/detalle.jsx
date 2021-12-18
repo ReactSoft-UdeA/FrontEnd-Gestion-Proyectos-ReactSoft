@@ -37,7 +37,7 @@ const ProyectosDetalle = () => {
   const {
     data: queryData2,
     error: queryError,
-    loading: queryLoading2,
+    loading: queryLoading2, refetch,
   } = useQuery(GET_PROYECTOS_DETALLE, {
     variables: { _id },
   });
@@ -65,7 +65,6 @@ const ProyectosDetalle = () => {
       data: aprobarData,
       loading: aprobarLoading,
       error: aprobarError,
-      refetch,
     },
   ] = useMutation(APROBAR_INSCRIPCION);
 
@@ -80,7 +79,7 @@ const ProyectosDetalle = () => {
   useEffect(() => {
     if (aprobarData) {
       toast.success("Inscripcion aprobada con exito");
-      // refetch();
+      refetch();
     }
   }, [aprobarData]);
 
@@ -106,7 +105,7 @@ const ProyectosDetalle = () => {
   useEffect(() => {
     if (rechazarData) {
       toast.success("Inscripcion Rechazada con exito");
-      // refetch();
+      refetch();
     }
   }, [rechazarData]);
 
