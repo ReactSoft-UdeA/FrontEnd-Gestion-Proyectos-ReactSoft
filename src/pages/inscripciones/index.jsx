@@ -19,10 +19,12 @@ const IndexInscripciones = () => {
   }, [data]);
   if (loading) return <div>Loading...</div>;
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <PrivateRoute roleList={["ADMINISTRADOR", "LIDER"]}>
       <div className="p-10">
-        <div>Pagina de inscripciones</div>
+        <div className='text-7xl text-gray-900 text-white font-medium tracking-tight'>Pagina de inscripciones</div>
         <div className="my-4">
+          <div className='text-2xl text-gray-900 text-white font-medium tracking-tight'>
           <AccordionInscripcion
             titulo="Inscripciones aprobadas"
             data={data.Inscripciones.filter((el) => el.estado === "ACEPTADO")}
@@ -38,8 +40,10 @@ const IndexInscripciones = () => {
             data={data.Inscripciones.filter((el) => el.estado === "RECHAZADO")}
           />
         </div>
+        </div>
       </div>
     </PrivateRoute>
+    </div>
   );
 };
 
@@ -89,7 +93,8 @@ const Inscripcion = ({ inscripcion, refetch }) => {
   };
 
   return (
-    <div className="bg-gray-900 text-gray-50 flex flex-col p-6 m-2 rounded-lg shadow-xl">
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
+    <div className="bg-gray-700 text-gray-50 flex flex-col p-6 m-2 rounded-lg shadow-xl">
       <span>{inscripcion.proyecto.nombre}</span>
       <span>{inscripcion.estudiante.nombre}</span>
       <span>{inscripcion.estado}</span>
@@ -103,6 +108,7 @@ const Inscripcion = ({ inscripcion, refetch }) => {
           disabled={false}
         />
       )}
+    </div>
     </div>
   );
 };

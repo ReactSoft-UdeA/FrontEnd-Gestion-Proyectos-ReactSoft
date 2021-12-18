@@ -35,6 +35,7 @@ const Register = () => {
   }, [dataMutation, setToken, navigate]);
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <div className="flex flex-col h-full w-full items-center justify-center">
       <h1 className="text-center display-1 h1 pt-15 ">Regístrate</h1>
       <form
@@ -71,6 +72,7 @@ const Register = () => {
       <Link to="/auth/login">
         <span className="text-blue-700">Inicia sesión</span>
       </Link>
+    </div>
     </div>
   );
 };

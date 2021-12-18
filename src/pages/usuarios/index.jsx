@@ -18,10 +18,14 @@ const IndexUsuarios = () => {
   if (loading) return <div>Cargando....</div>;
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <PrivateRoute roleList={["ADMINISTRADOR"]}>
       <div>
-        <h1 className="text-center display-1 h1 pt-10">Usuarios</h1>
+      <div className='flex w-full items-center justify-center'>
+        <h1 className='text-9xl text-white text-white font-medium tracking-tight'>Usuarios</h1>
+      </div>
         <br />
+        <div class="bg-gradient-to-r from-gray-500 to-gray-50 rounded-lg ring-1 ring-gray-900/5 shadow-xl">
         <table className="tabla">
           <thead>
             <tr>
@@ -60,8 +64,10 @@ const IndexUsuarios = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </PrivateRoute>
+    </div>
   );
 };
 
