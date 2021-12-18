@@ -1,20 +1,3 @@
-// import React from "react";
-// import PrivateRoute from "components/PrivateRoute";
-
-// const ProyectosDetalle = () => {
-//   return (
-//     <div>
-//       <PrivateRoute roleList={["LIDER"]}>
-//         <h1 className="text-center display-1 h1 pt-10 ">
-//           Detalles del Proyecto
-//         </h1>
-//       </PrivateRoute>
-//     </div>
-//   );
-// };
-
-// export default ProyectosDetalle;
-
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
@@ -26,13 +9,36 @@ import {
   RECHAZAR_INSCRIPCION,
 } from "graphql/inscripciones/mutaciones";
 import ButtonLoading from "components/ButtonLoading";
+import {EDITAR_PROYECTO_LIDER} from "graphql/proyectosLider/mutations"
+import useFormData from "hooks/useFormData";
+import { useNavigate } from "react-router";
+
 
 const ProyectosDetalle = () => {
+
+  const navigate = useNavigate();
+  const { form, formData, updateFormData } = useFormData(null);
   const { _id } = useParams();
 
   /* const {data: queryData, error: queryError, loading: queryLoading} = useQuery(GET_USUARIO, {
         variables: {_id},
     }); */
+
+    const [
+      editarProyecto,
+      { data: mutationData3, loading: mutationLoading3, error: mutationError3 },
+    ] = useMutation(EDITAR_PROYECTO_LIDER);
+  
+    useEffect(() => {
+      if (mutationData3) {
+          
+        inhabilitarInputs();
+        toast.success('El proyecto se editó Exitosamente!!');
+        /* formData=0 */
+  
+      }
+    }, [mutationData3]);
+
 
   const {
     data: queryData2,
@@ -125,17 +131,31 @@ const ProyectosDetalle = () => {
   if (queryLoading2)
     return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 
-  const editarProyecto = ()=>{
+  const habilitarEdicionProyecto = ()=>{
     document.querySelector(".editElement").disabled=false;
     document.querySelector(".editElement2").disabled=false;
     document.querySelector("#BtnEditar").style.display='none';
     document.querySelector("#btnGuardarProyecto").style.display='block';
   }
 
-  const guardarCambios = ()=>{
-    alert("Modificando");
+  const submitForm = (e)=>{
+    e.preventDefault();
+    formData.presupuesto = parseFloat(formData.presupuesto);
+    console.log(formData);
+    editarProyecto({
+        variables: { _id, ...formData },
+      });
   }
 
+ 
+
+  const inhabilitarInputs = ()=>{
+    document.querySelector(".editElement").disabled=true;
+    document.querySelector(".editElement2").disabled=true;
+    document.querySelector("#BtnEditar").style.display='block';
+    document.querySelector("#btnGuardarProyecto").style.display='none';
+   }    
+  
 
   return (
     <div>
@@ -170,6 +190,12 @@ const ProyectosDetalle = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div class="accordion-body d-flex flex-wrap">
+                  <form
+                    onSubmit={submitForm} 
+                    onChange={updateFormData}
+                    ref={form}
+                    className="d-flex flex-wrap"
+                  >
                   <div class="mb-3 col-lg-3 m-3">
                     <label for="exampleFormControlInput1" class="form-label">
                       Id Proyecto
@@ -188,7 +214,8 @@ const ProyectosDetalle = () => {
                     <input
                       type="text"
                       class="form-control editElement"
-                      value={queryData2.ProyectosPorId[0].nombre}
+                      name="nombre"
+                      defaultValue={queryData2.ProyectosPorId[0].nombre}
                       disabled
                     />
                   </div>
@@ -199,7 +226,8 @@ const ProyectosDetalle = () => {
                     <input
                       type="text"
                       class="form-control editElement2"
-                      value={queryData2.ProyectosPorId[0].presupuesto}
+                      name="presupuesto"
+                      defaultValue={queryData2.ProyectosPorId[0].presupuesto}
                       disabled
                     />
                   </div>
@@ -232,14 +260,15 @@ const ProyectosDetalle = () => {
                     <input
                       type="text"
                       class="form-control"
-                      value={queryData2.ProyectosPorId[0].estado}
+                      defaultValue={queryData2.ProyectosPorId[0].estado}
                       disabled
                     />
                   </div>
                   <div class="mb-3 col-lg-3 m-3">
-                    <button type="button" id="BtnEditar" onClick={editarProyecto} class="btn btn-primary">Editar</button>
-                    <button type="button" id="btnGuardarProyecto" onclick={guardarCambios} disabled style={{display:'none'}} class="btn btn-warning">Guardar cambios</button>
+                    <button type="button" id="BtnEditar" onClick={habilitarEdicionProyecto} class="btn btn-primary">Editar</button>
+                    <button type="submit" id="btnGuardarProyecto" style={{display:'none'}} class="btn btn-warning">Guardar cambios</button>
                   </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -311,11 +340,14 @@ const ProyectosDetalle = () => {
                     <thead className="tabla">
                       <tr>
                         <th scope="col" className="text-center ">
-                          ID OBJETIVO
+                          ID AVANCE
                         </th>
                         {/* <th scope="col">TIPO</th> */}
                         <th scope="col" className="text-center">
                           DESCRIPCIÓN
+                        </th>
+                        <th scope="col" className="text-center">
+                          OBSERVACIONES
                         </th>
                       </tr>
                     </thead>
@@ -327,6 +359,9 @@ const ProyectosDetalle = () => {
                               <td class="text-center">{u._id.slice(20)}</td>
                               {/* <td class="text-center">{u.fechaAvance}</td> */}
                               <td class="text-center">{u.descripcion}</td>
+                              <td class="text-center">
+                                
+                              </td>
                             </tr>
                           );
                         })}
