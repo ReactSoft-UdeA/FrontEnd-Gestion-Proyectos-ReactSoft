@@ -125,6 +125,18 @@ const ProyectosDetalle = () => {
   if (queryLoading2)
     return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 
+  const editarProyecto = ()=>{
+    document.querySelector(".editElement").disabled=false;
+    document.querySelector(".editElement2").disabled=false;
+    document.querySelector("#BtnEditar").style.display='none';
+    document.querySelector("#btnGuardarProyecto").style.display='block';
+  }
+
+  const guardarCambios = ()=>{
+    alert("Modificando");
+  }
+
+
   return (
     <div>
       <PrivateRoute roleList={["LIDER"]}>
@@ -175,8 +187,9 @@ const ProyectosDetalle = () => {
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control editElement"
                       value={queryData2.ProyectosPorId[0].nombre}
+                      disabled
                     />
                   </div>
                   <div class="mb-3 col-lg-3 m-3">
@@ -185,8 +198,9 @@ const ProyectosDetalle = () => {
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control editElement2"
                       value={queryData2.ProyectosPorId[0].presupuesto}
+                      disabled
                     />
                   </div>
                   <div class="mb-3 col-lg-3 m-3">
@@ -219,7 +233,12 @@ const ProyectosDetalle = () => {
                       type="text"
                       class="form-control"
                       value={queryData2.ProyectosPorId[0].estado}
+                      disabled
                     />
+                  </div>
+                  <div class="mb-3 col-lg-3 m-3">
+                    <button type="button" id="BtnEditar" onClick={editarProyecto} class="btn btn-primary">Editar</button>
+                    <button type="button" id="btnGuardarProyecto" onclick={guardarCambios} disabled style={{display:'none'}} class="btn btn-warning">Guardar cambios</button>
                   </div>
                 </div>
               </div>
