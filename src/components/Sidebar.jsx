@@ -16,11 +16,6 @@ const SidebarLinks = () => {
           icon="fas fa-clipboard-check"
         />
       </PrivateComponent>
-      {/* <SidebarRoute
-        to="/proyectos"
-        title="Proyectos-muestra"
-        icon="fas fa-smile-wink"
-      /> */}
 
       {/* LIDER */}
       <PrivateComponent roleList={["LIDER"]}>
@@ -29,6 +24,12 @@ const SidebarLinks = () => {
           title="Aprobacion Inscripciones"
           icon="fas fa-user"
         /> */}
+        <SidebarRoute
+          to="/proyectosObjetivo"
+          title="Proyectos Objetivos"
+          // icon="fas fa-smile-wink"
+          icon="fas fa-object-group"
+        />
         <SidebarRoute
           to="/proyectosLider/index"
           title="Proyectos-Lider"

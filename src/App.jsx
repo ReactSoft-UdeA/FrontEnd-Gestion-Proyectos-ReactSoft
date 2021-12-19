@@ -149,7 +149,7 @@ function App() {
                   path="/proyectosEstudiante/inscripcion"
                   element={<IndexProyectosDisponibles />}
                 /> */}
-                <Route path="/proyectos" element={<IndexProyectos />} />
+                <Route path="/proyectosObjetivo" element={<IndexProyectos />} />
                 <Route path="/proyectos/nuevo" element={<NuevoProyecto />} />
                 <Route path="/inscripciones" element={<IndexInscripciones />} />
                 <Route path="page2" element={<Page2 />} />
