@@ -18,16 +18,48 @@ const GET_PROYECTOS_USUARIO = gql`
   }
 `;
 
+const PROYECTOS = gql`
+  query Proyectos {
+    Proyectos {
+      _id
+      nombre
+      presupuesto
+      fechaInicio
+      fechaFin
+      estado
+      fase
+      lider {
+        _id
+        nombre
+        correo
+      }
+      objetivos {
+        descripcion
+        tipo
+      }
+      inscripciones {
+        estado
+        estudiante {
+          _id
+          nombre
+        }
+      }
+    }
+  }
+`;
+
 const GET_PROYECTO_INSCRIPCION = gql`
   query ProyectosPorId($_id: String!) {
     ProyectosPorId(_id: $_id) {
       _id
       estado
       nombre
-      objetivos {
-        _id
-        tipo
-        descripcion
+      inscripciones {
+        estado
+        estudiante {
+          _id
+          nombre
+        }
       }
     }
   }
@@ -83,24 +115,11 @@ const GET_AVANCE = gql`
   }
 `;
 
-// const GET_PROYECTO = gql`;
-//   query BuscarUserPorID($_id: String!) {
-//     Usuario(_id: $_id) {
-//       _id
-//       nombre
-//       apellido
-//       correo
-//       estado
-//       identificacion
-//       rol
-//     }
-//   }
-// `;
-
 export {
   GET_PROYECTOS_USUARIO,
   GET_PROYECTO_INSCRIPCION,
   GET_PROYECTOS_INSCRITOS,
   GET_AVANCES,
   GET_AVANCE,
+  PROYECTOS,
 };

@@ -45,7 +45,7 @@ const SidebarLinks = () => {
         <SidebarRoute
           to="/proyectosEstudiante/proyectosDisponibles"
           title="Inscribir Proyecto"
-          icon="fas fa-clipboard-check"
+          icon="fas fa-folder-plus"
         />
       </PrivateComponent>
       <Logout />

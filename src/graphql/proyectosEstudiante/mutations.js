@@ -1,12 +1,9 @@
 import { gql } from "@apollo/client";
 
 const CREAR_INSCRIPCION = gql`
-  mutation CrearInscripcion($proyecto: String, $estudiante: String) {
+  mutation Mutation($proyecto: String!, $estudiante: String!) {
     crearInscripcion(proyecto: $proyecto, estudiante: $estudiante) {
       _id
-      estado
-      fechaIngreso
-      fechaEgreso
     }
   }
 `;
