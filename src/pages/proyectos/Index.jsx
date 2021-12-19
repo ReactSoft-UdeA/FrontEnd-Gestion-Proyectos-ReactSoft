@@ -3,32 +3,30 @@ import { useMutation, useQuery } from '@apollo/client';
 import { PROYECTOS } from 'graphql/proyectos/queries';
 import DropDown from 'components/Dropdown';
 import { Dialog } from '@mui/material';
-import { Enum_EstadoProyecto } from 'utils/enums';
-import ButtonLoading from 'components/ButtonLoading';
-import { EDITAR_PROYECTO } from 'graphql/proyectos/mutations';
 import useFormData from 'hooks/useFormData';
 import PrivateComponent from 'components/PrivateComponent';
 import { Link } from 'react-router-dom';
-import { CREAR_INSCRIPCION } from 'graphql/inscripciones/mutaciones';
-import { useUser } from 'context/userContext';
 import { toast } from 'react-toastify';
-import {
-  AccordionStyled,
-  AccordionSummaryStyled,
-  AccordionDetailsStyled,
-} from 'components/Accordion';
+import { AccordionStyled, AccordionSummaryStyled, AccordionDetailsStyled, } from 'components/Accordion';
+import { EDITAR_OBJETIVO, ELIMINAR_OBJETIVO } from '../../graphql/proyectos/mutations';
+import { ProjectQueryContext, useProjectQuery } from '../../context/projectQueryContext';
+import ReactLoading from "react-loading";
+import Input from 'components/Input';
+import { Enum_TipoObjetivo } from '../../utils/enums';
 
 const IndexProyectos = () => {
-  const { data: queryData, loading, error } = useQuery(PROYECTOS);
+  const { data: queryData, loading, error, refetch } = useQuery(PROYECTOS);
 
   useEffect(() => {
     console.log('datos proyecto', queryData);
+    refetch();
   }, [queryData]);
 
   if (loading) return <div>Cargando...</div>;
 
   if (queryData.Proyectos) {
     return (
+      <ProjectQueryContext.Provider>
       <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
         <div className='p-10 flex flex-col'>
           <div className='flex w-full items-center justify-center'>
@@ -46,6 +44,7 @@ const IndexProyectos = () => {
           })}
         </div>
       </div>
+      </ProjectQueryContext.Provider>
     );
   }
 
@@ -57,33 +56,22 @@ const AccordionProyecto = ({ proyecto }) => {
   return (
     <>
       <AccordionStyled>
-        <AccordionSummaryStyled expandIcon={<i className='fas fa-chevron-down' />}>
-          <div className='flex w-full justify-between'>
-            <div className='uppercase font-bold text-gray-100 '>
-              {proyecto.nombre} - {proyecto.estado}
+        <AccordionSummaryStyled expandIcon={<i className='text-blue-600 fas fa-hand-point-down' />}>
+          <div className='justify-center'>
+            <div className='font-bold text-black-100'>
+              {proyecto.nombre}
+            </div>
+            <div className='flex text-black-100'>
+              Estado Proyecto:  .<div className="font-bold ">{proyecto.estado}</div> 
             </div>
           </div>
         </AccordionSummaryStyled>
         <AccordionDetailsStyled>
-          <PrivateComponent roleList={['ADMINISTRADOR']}>
-            <i
-              className='mx-4 fas fa-pen text-yellow-600 hover:text-yellow-400'
-              onClick={() => {
-                setShowDialog(true);
-              }}
-            />
-          </PrivateComponent>
-          <PrivateComponent roleList={['ESTUDIANTE']}>
-            <InscripcionProyecto
-              idProyecto={proyecto._id}
-              estado={proyecto.estado}
-              inscripciones={proyecto.inscripciones}
-            />
-          </PrivateComponent>
-          <div>Liderado Por: {proyecto.lider.correo}</div>
-          <div className='flex'>
-            {proyecto.objetivos.map((objetivo) => {
-              return <Objetivo tipo={objetivo.tipo} descripcion={objetivo.descripcion} />;
+          <div className="font-sans font-bold">Este proyecto se encuentra liderado Por: </div>
+          <div className="font-sans">{proyecto.lider.correo}</div>
+          <div className=''>
+            {proyecto.objetivos.map((objetivo, index) => {
+              return <Objetivo index={index} _id={objetivo._id} idProyecto={proyecto._id} tipo={objetivo.tipo} descripcion={objetivo.descripcion} />;
             })}
           </div>
         </AccordionDetailsStyled>
@@ -94,97 +82,111 @@ const AccordionProyecto = ({ proyecto }) => {
           setShowDialog(false);
         }}
       >
-        <FormEditProyecto _id={proyecto._id} />
       </Dialog>
     </>
   );
 };
 
-const FormEditProyecto = ({ _id }) => {
+
+const Objetivo = ({ index, _id, idProyecto, tipo, descripcion }) => {
+
+  const {refetch} = useProjectQuery();
+
+  const [showEditDialog, setShowEditDialog] = useState (false);
+
+  const [eliminarObjetivo, { data: dataMutationEliminar, loading: eliminarLoading }] = useMutation(ELIMINAR_OBJETIVO);
+
+  useEffect(() => {
+    console.log('Eliminar Objetivo', dataMutationEliminar);
+    if (dataMutationEliminar) {
+      refetch();
+      toast.success('Objetivo Eliminado');
+    }
+  }, [dataMutationEliminar, refetch]);
+
+  const ejecutarEliminacion = ()=> {
+    eliminarObjetivo({variables:{ idProyecto, idObjetivo: _id }})
+  }
+
+  if(eliminarLoading) return <ReactLoading type="spin" height={50} width={50} />
+
+  return (
+    <div>
+      <table class="table table-hover table-primary text-center">
+        <thead>
+          <tr>
+            {/* <th scope="col">#</th>
+            <th scope="col">First</th> */}
+            <th scope="col">Tipo</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="table-secondary ">
+            {/* <th scope="row">1</th>
+            <td>Mark</td> */}
+            <td>{tipo}</td>
+            <td>{descripcion}</td>
+            <td>
+              <PrivateComponent roleList={['LIDER']}>
+                <div className="">
+                  <i onClick={() => setShowEditDialog(true)} className="far fa-edit mx-2 hover:text-green-600 cursor-pointer" />
+                  <i onClick={ejecutarEliminacion} className="fas fa-minus-circle mx-2 hover:text-red-600 cursor-pointer" />
+                </div>
+                <Dialog open={showEditDialog} onClose={() => setShowEditDialog(false)} >
+                  <EditarObjetivo descripcion={descripcion} tipo={tipo} index={index} idProyecto={idProyecto} setShowEditDialog={setShowEditDialog} />
+
+                </Dialog>
+              </PrivateComponent>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+  );
+};
+
+const EditarObjetivo = ({ descripcion, tipo, index, idProyecto, setShowEditDialog }) => {
+
+  const {refetch} = useProjectQuery();
+
   const { form, formData, updateFormData } = useFormData();
-  const [editarProyecto, { data: dataMutation, loading, error }] = useMutation(EDITAR_PROYECTO);
+
+  const [editatObjetivo, { data: dataMutation }] = useMutation(EDITAR_OBJETIVO);
+
+  useEffect(() => {
+    if (dataMutation){
+      toast.success('El Objetivo fue modificado');
+      setShowEditDialog(false);
+      refetch();
+    }
+    // console.log('Edicion Objetivo ', dataMutation)
+  }, [dataMutation])
 
   const submitForm = (e) => {
-    e.preventDefault();
-    editarProyecto({
-      variables: {
-        _id,
-        campos: formData,
-      },
-    });
-  };
-
-  useEffect(() => {
-    console.log('data mutation', dataMutation);
-  }, [dataMutation]);
+    e.preventDefault()
+    editatObjetivo({variables: {
+      idProyecto,
+      indexObjetivo: index,
+      campos: formData,
+    }})
+  }
 
   return (
-    <div className='p-4'>
-      <h1 className='font-bold'>Modificar Estado del Proyecto</h1>
-      <form
-        ref={form}
-        onChange={updateFormData}
-        onSubmit={submitForm}
-        className='flex flex-col items-center'
-      >
-        <DropDown label='Estado del Proyecto' name='estado' options={Enum_EstadoProyecto} />
-        <ButtonLoading disabled={false} loading={loading} text='Confirmar' />
+    <div className='p-20'>
+      <h1 className='text-4xl'>Editar Objetivo Proyecto</h1>
+      <form ref={form} onChange={updateFormData} onSubmit={submitForm} >
+
+        <DropDown label='Tipo de Objetivo' name='tipo' required={true} options={Enum_TipoObjetivo} defaultValue={tipo} />
+        <Input label='Descripcion Del Objetivo' name='descripcion' required={true} defaultValue={descripcion} />
+        <button type="submit" onClick = {() => {}} className="btn btn-primary">Editar </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-const Objetivo = ({ tipo, descripcion }) => {
-  return (
-    <div className='mx-5 my-4 bg-gray-50 p-8 rounded-lg flex flex-col items-center justify-center shadow-xl'>
-      <div className='text-lg font-bold'>{tipo}</div>
-      <div>{descripcion}</div>
-      <PrivateComponent roleList={['ADMINISTRADOR']}>
-        <div>Editar</div>
-      </PrivateComponent>
-    </div>
-  );
-};
-
-const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
-  const [estadoInscripcion, setEstadoInscripcion] = useState('');
-  const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION);
-  const { userData } = useUser();
-
-  useEffect(() => {
-    if (userData && inscripciones) {
-      const flt = inscripciones.filter((el) => el.estudiante._id === userData._id);
-      if (flt.length > 0) {
-        setEstadoInscripcion(flt[0].estado);
-      }
-    }
-  }, [userData, inscripciones]);
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-      toast.success('inscripcion creada con exito');
-    }
-  }, [data]);
-
-  const confirmarInscripcion = () => {
-    crearInscripcion({ variables: { proyecto: idProyecto, estudiante: userData._id } });
-  };
-
-  return (
-    <>
-      {estadoInscripcion !== '' ? (
-        <span>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion}</span>
-      ) : (
-        <ButtonLoading
-          onClick={() => confirmarInscripcion()}
-          disabled={estado === 'INACTIVO'}
-          loading={loading}
-          text='Inscribirme en este proyecto'
-        />
-      )}
-    </>
-  );
-};
 
 export default IndexProyectos;

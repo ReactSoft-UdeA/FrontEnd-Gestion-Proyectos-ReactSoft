@@ -11,12 +11,19 @@ import {
 import { setContext } from "@apollo/client/link/context";
 //ADMINISTRADOR
 import IndexProyectosAdmin from "pages/proyectosAdmin";
+import EditarEstadoFase from "./pages/proyectosAdmin/EditarEstadoFase";
+
 //LIDER
 import IndexProyectosLider from "pages/proyectosLider/index";
+import ProyectosDetalle from "pages/proyectosLider/detalle";
 
 //ESTUDIANTE
-import IndexProyectosEstudiante from "pages/proyectosEstudiante";
-
+import IndexProyectosEstudiante from "pages/proyectosEstudiante/index";
+import IndexProyectosDisponibles from "pages/proyectosEstudiante/proyectosDisponibles";
+import AvancesEstudiante from "pages/proyectosEstudiante/avances";
+import EditarAvance from "pages/proyectosEstudiante/editarAvance";
+import NuevoAvance from "pages/proyectosEstudiante/NuevoAvance";
+//paginas ejemplo
 import Index from "pages/Index";
 import Page2 from "pages/Page2";
 
@@ -84,6 +91,8 @@ function App() {
     }
   }, [authToken]);
 
+  // console.log("usuarioFront2:", userData._id);
+
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={{ authToken, setAuthToken, setToken }}>
@@ -102,17 +111,45 @@ function App() {
                   path="/proyectosAdmin"
                   element={<IndexProyectosAdmin />}
                 />
+                <Route
+                  path="/proyectosAdmin/editar/:_id"
+                  element={<EditarEstadoFase />}
+                />
                 {/* LIDER */}
                 <Route
-                  path="/proyectosLider"
+                  path="/proyectosLider/index"
                   element={<IndexProyectosLider />}
+                />
+                <Route
+                  path="/proyectosLider/detalle/:_id"
+                  element={<ProyectosDetalle />}
                 />
                 {/* ESTUDIANTE */}
                 <Route
-                  path="/proyectosEstudiante"
+                  path="/proyectosEstudiante/index"
                   element={<IndexProyectosEstudiante />}
                 />
-                <Route path="/proyectos" element={<IndexProyectos />} />
+                <Route
+                  path="/proyectosEstudiante/avances/:_id"
+                  element={<AvancesEstudiante />}
+                />
+                <Route
+                  path="/proyectosEstudiante/nuevoAvance/:_id"
+                  element={<NuevoAvance />}
+                />
+                <Route
+                  path="/proyectosEstudiante/editarAvance/:_id"
+                  element={<EditarAvance />}
+                />
+                <Route
+                  path="/proyectosEstudiante/proyectosDisponibles"
+                  element={<IndexProyectosDisponibles />}
+                />
+                {/* <Route
+                  path="/proyectosEstudiante/inscripcion"
+                  element={<IndexProyectosDisponibles />}
+                /> */}
+                <Route path="/proyectosObjetivo" element={<IndexProyectos />} />
                 <Route path="/proyectos/nuevo" element={<NuevoProyecto />} />
                 <Route path="/inscripciones" element={<IndexInscripciones />} />
                 <Route path="page2" element={<Page2 />} />

@@ -16,21 +16,22 @@ const SidebarLinks = () => {
           icon="fas fa-clipboard-check"
         />
       </PrivateComponent>
-      <SidebarRoute
-        to="/proyectos"
-        title="Proyectos-muestra"
-        icon="fas fa-smile-wink"
-      />
 
       {/* LIDER */}
       <PrivateComponent roleList={["LIDER"]}>
-        <SidebarRoute
+        {/* <SidebarRoute
           to="/inscripciones"
           title="Aprobacion Inscripciones"
           icon="fas fa-user"
+        /> */}
+        <SidebarRoute
+          to="/proyectosObjetivo"
+          title="Proyectos Objetivos"
+          // icon="fas fa-smile-wink"
+          icon="fas fa-object-group"
         />
         <SidebarRoute
-          to="/proyectosLider"
+          to="/proyectosLider/index"
           title="Proyectos-Lider"
           icon="fas fa-clipboard-check"
         />
@@ -38,9 +39,14 @@ const SidebarLinks = () => {
       {/* ESTUDIANTE */}
       <PrivateComponent roleList={["ESTUDIANTE"]}>
         <SidebarRoute
-          to="/proyectosEstudiante"
-          title="Proyectos-Estudiante"
+          to="/proyectosEstudiante/index"
+          title="Proyectos Inscritos"
           icon="fas fa-clipboard-check"
+        />
+        <SidebarRoute
+          to="/proyectosEstudiante/proyectosDisponibles"
+          title="Inscribir Proyecto"
+          icon="fas fa-folder-plus"
         />
       </PrivateComponent>
       <Logout />

@@ -31,4 +31,38 @@ const CREAR_PROYECTO = gql`
   }
 `;
 
-export { EDITAR_PROYECTO, CREAR_PROYECTO };
+const EDITAR_PROYECTO_FASE_ESTADO = gql`
+  mutation ProyectoFaseEstado(
+    $_id: String!, 
+    $estado: Enum_EstadoProyecto!, 
+    $fase: Enum_FaseProyecto!
+  ) {
+    proyectoFaseEstado(
+      _id: $_id, 
+      estado: $estado, 
+      fase: $fase
+    ) {
+      _id
+      estado
+      fase
+  }
+}
+`;
+
+const ELIMINAR_OBJETIVO = gql`
+  mutation EliminarObjetivo($idProyecto: String!, $idObjetivo: String!) {
+  eliminarObjetivo(idProyecto: $idProyecto, idObjetivo: $idObjetivo) {
+    _id
+  }
+}
+`;
+
+const EDITAR_OBJETIVO = gql`
+  mutation EditarObjetivo($idProyecto: String!, $indexObjetivo: Int!, $campos: camposObjetivo!) {
+  editarObjetivo(idProyecto: $idProyecto, indexObjetivo: $indexObjetivo, campos: $campos) {
+    _id
+  }
+}
+`;
+
+export { EDITAR_PROYECTO, CREAR_PROYECTO, EDITAR_PROYECTO_FASE_ESTADO, ELIMINAR_OBJETIVO, EDITAR_OBJETIVO };

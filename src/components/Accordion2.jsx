@@ -5,18 +5,18 @@ import { styled } from "@mui/material/styles";
 
 const AccordionStyled = styled((props) => <Accordion {...props} />)(
   ({ theme }) => ({
-    backgroundColor: "#ffffff",
+    backgroundColor: "#919191",
   })
 );
 const AccordionSummaryStyled = styled((props) => (
   <AccordionSummary {...props} />
 ))(({ theme }) => ({
-  backgroundColor: "#ffffff",
+  backgroundColor: "#919191",
 }));
 const AccordionDetailsStyled = styled((props) => (
   <AccordionDetails {...props} />
 ))(({ theme }) => ({
-  backgroundColor: "#ffffff",
+  backgroundColor: "#ccc",
 }));
 
 export { AccordionStyled, AccordionSummaryStyled, AccordionDetailsStyled };

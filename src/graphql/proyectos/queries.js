@@ -7,6 +7,7 @@ const PROYECTOS = gql`
       nombre
       estado
       objetivos {
+        _id
         descripcion
         tipo
       }
@@ -18,6 +19,7 @@ const PROYECTOS = gql`
         estado
         estudiante {
           _id
+          nombre
         }
       }
     }
@@ -39,4 +41,44 @@ const GET_PROYECTO_INSCRIPCION = gql`
   }
 `;
 
-export { PROYECTOS, GET_PROYECTO_INSCRIPCION };
+const GET_PROYECTOS = gql`
+query Proyectos {
+  Proyectos {
+    _id
+    nombre
+    presupuesto
+    fechaInicio
+    fechaFin
+    estado
+    fase
+    lider {
+      _id
+      identificacion
+      nombre
+      apellido
+      correo
+      rol
+    }
+    objetivos {
+      tipo
+      descripcion
+    }
+  }
+}
+`;
+
+const GET_PROYECTO = gql`
+query Proyecto($_id: String!) {
+  ProyectoEstadoFase(_id: $_id) {
+    _id
+    nombre
+    presupuesto
+    fechaInicio
+    fechaFin
+    estado
+    fase
+  }
+}
+`;
+
+export { PROYECTOS, GET_PROYECTO_INSCRIPCION, GET_PROYECTOS, GET_PROYECTO };
