@@ -29,4 +29,14 @@ mutation EditarProyecto(
     }
 `;
 
-export { EDITAR_PROYECTO_LIDER };
+
+const ADD_OBSERVACION_AVANCE = gql`
+mutation Mutation($_id: String!, $observaciones: String) {
+    editarAvance(_id: $_id, observaciones: $observaciones) {
+      _id
+      observaciones
+    }
+  }
+`;
+
+export { EDITAR_PROYECTO_LIDER , ADD_OBSERVACION_AVANCE};
