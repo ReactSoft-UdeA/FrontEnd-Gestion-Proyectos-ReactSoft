@@ -7,7 +7,6 @@ import Input from "components/Input";
 import { toast } from "react-toastify";
 import ButtonLoading from "components/ButtonLoading";
 import useFormData from "hooks/useFormData";
-import { useNavigate } from "react-router";
 import { CREAR_AVANCE } from "graphql/proyectosEstudiante/mutations";
 
 const NuevoAvance = () => {
@@ -15,7 +14,6 @@ const NuevoAvance = () => {
   const { userData } = useUser();
   const [IdEstudiante, setIdEstudiante] = useState("");
   const { _id } = useParams();
-  const navigate = useNavigate();
 
   const [
     crearAvance,
@@ -35,7 +33,6 @@ const NuevoAvance = () => {
     crearAvance({
       variables: formData,
     });
-    // navigate("/proyectosEstudiante/index");
   };
 
   useEffect(() => {
@@ -43,22 +40,15 @@ const NuevoAvance = () => {
       toast.success("Avance Creado Correctamente");
     }
   }, [mutationData]);
-  // if (loading) return <div>...Loading</div>;
 
   return (
     <div>
       <PrivateRoute roleList={["ESTUDIANTE"]}>
         <div className="flew flex-col w-full h-full items-center justify-center p-10">
-          {/* boton atras */}
           <button type="button" class="btn btn-outline-primary">
             <Link to="/proyectosEstudiante/index">Atras </Link>
           </button>
           <br />
-          {/* <div class="col-lg-11 m-10 d-flex flex-wrap align-items-start"> */}
-
-          {/* formulario */}
-
-          {/* ************************************** */}
           <br />
           <br />
           <div className=" bg-gray-100 text-center display-5">
@@ -76,14 +66,12 @@ const NuevoAvance = () => {
               label="Fecha de Creación"
               type="date"
               name="fecha"
-              // defaultValue={queryData.Avance._id}
               required={true}
             />
             <Input
               label="Descripción"
               type="text"
               name="descripcion"
-              // defaultValue={queryData.Avance.fecha.slice(0, 10)}
               required={true}
             />
             <Input

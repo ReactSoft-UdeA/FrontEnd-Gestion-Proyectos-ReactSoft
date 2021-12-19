@@ -19,7 +19,6 @@ import ProyectosDetalle from "pages/proyectosLider/detalle";
 
 //ESTUDIANTE
 import IndexProyectosEstudiante from "pages/proyectosEstudiante/index";
-import CrearInscripcion from "pages/proyectosEstudiante/inscripcion";
 import IndexProyectosDisponibles from "pages/proyectosEstudiante/proyectosDisponibles";
 import AvancesEstudiante from "pages/proyectosEstudiante/avances";
 import EditarAvance from "pages/proyectosEstudiante/editarAvance";
@@ -107,7 +106,6 @@ function App() {
                 <Route
                   path="/usuarios/editar/:_id"
                   element={<EditarUsuario />}
-
                 />
                 <Route
                   path="/proyectosAdmin"
@@ -142,10 +140,6 @@ function App() {
                 <Route
                   path="/proyectosEstudiante/editarAvance/:_id"
                   element={<EditarAvance />}
-                />
-                <Route
-                  path="/proyectosEstudiante/inscripcion/:_id"
-                  element={<CrearInscripcion />}
                 />
                 <Route
                   path="/proyectosEstudiante/proyectosDisponibles"
