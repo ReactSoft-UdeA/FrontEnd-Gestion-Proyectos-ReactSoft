@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
@@ -11,16 +11,16 @@ import {
 import ButtonLoading from "components/ButtonLoading";
 import {EDITAR_PROYECTO_LIDER} from "graphql/proyectosLider/mutations"
 import {ADD_OBSERVACION_AVANCE} from "graphql/proyectosLider/mutations"
+import {EDITAR_OBJETIVO} from "graphql/proyectosLider/mutations"
 import useFormData from "hooks/useFormData";
 import { useNavigate } from "react-router";
-
 
 const ProyectosDetalle = () => {
 
   const navigate = useNavigate();
   const { form, formData, updateFormData } = useFormData(null);
   const { _id } = useParams();
-
+  
   /* const {data: queryData, error: queryError, loading: queryLoading} = useQuery(GET_USUARIO, {
         variables: {_id},
     }); */
@@ -35,6 +35,11 @@ const ProyectosDetalle = () => {
       editarAvance,
       { data: mutationData4, loading: mutationLoading4, error: mutationError4 },
     ] = useMutation(ADD_OBSERVACION_AVANCE);
+    
+    const [
+      editarObjetivo,
+      { data: mutationData5, loading: mutationLoading5, error: mutationError5 },
+    ] = useMutation(EDITAR_OBJETIVO);
   
     useEffect(() => {
       if (mutationData3) {
@@ -184,9 +189,6 @@ const ProyectosDetalle = () => {
     })
    }
 
-
-   
-
   return (
     <div>
 
@@ -222,6 +224,7 @@ const ProyectosDetalle = () => {
   </div>
 </div>
     {/* fin modal */}
+
 
       <PrivateRoute roleList={["LIDER"]}>
         <div class="col-lg-11 m-10 d-flex flex-wrap align-items-start">
@@ -328,6 +331,7 @@ const ProyectosDetalle = () => {
                       disabled
                     />
                   </div>
+                  
                   <div class="mb-3 col-lg-3 m-3">
                     <button type="button" id="BtnEditar" onClick={habilitarEdicionProyecto} class="btn btn-primary">Editar</button>
                     <button type="submit" id="btnGuardarProyecto" style={{display:'none'}} class="btn btn-warning">Guardar cambios</button>
@@ -356,6 +360,7 @@ const ProyectosDetalle = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div class="accordion-body">
+                  <br/>
                   <table class="table table-hover">
                     <thead>
                       <tr>
@@ -377,6 +382,7 @@ const ProyectosDetalle = () => {
                         })}
                     </tbody>
                   </table>
+                  <br/>
                 </div>
               </div>
             </div>

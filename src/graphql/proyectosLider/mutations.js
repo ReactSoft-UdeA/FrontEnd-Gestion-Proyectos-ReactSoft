@@ -39,4 +39,17 @@ mutation Mutation($_id: String!, $observaciones: String) {
   }
 `;
 
-export { EDITAR_PROYECTO_LIDER , ADD_OBSERVACION_AVANCE};
+const EDITAR_OBJETIVO = gql `
+mutation Mutation($idProyecto: String!, $indexObjetivo: Int!, $campos: camposObjetivo!) {
+    editarObjetivo(idProyecto: $idProyecto, indexObjetivo: $indexObjetivo, campos: $campos) {
+      objetivos {
+        _id
+        descripcion
+        tipo
+      }
+    }
+  }
+`;
+
+
+export { EDITAR_PROYECTO_LIDER , ADD_OBSERVACION_AVANCE, EDITAR_OBJETIVO};
