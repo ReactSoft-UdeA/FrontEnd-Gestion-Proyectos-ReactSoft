@@ -37,6 +37,7 @@ const GET_PROYECTOS_DETALLE = gql`
         _id
         fecha
         descripcion
+        observaciones
       }
       inscripciones {
         _id
