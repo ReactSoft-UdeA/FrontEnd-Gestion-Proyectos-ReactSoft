@@ -8,8 +8,12 @@ import { toast } from "react-toastify";
 import ButtonLoading from "components/ButtonLoading";
 import useFormData from "hooks/useFormData";
 import { CREAR_AVANCE } from "graphql/proyectosEstudiante/mutations";
+import { useNavigate } from 'react-router';
 
 const NuevoAvance = () => {
+  
+  const navigate = useNavigate();
+
   const { form, formData, updateFormData } = useFormData();
   const { userData } = useUser();
   const [IdEstudiante, setIdEstudiante] = useState("");
@@ -38,6 +42,7 @@ const NuevoAvance = () => {
   useEffect(() => {
     if (mutationData) {
       toast.success("Avance Creado Correctamente");
+      navigate("/proyectosEstudiante/index");
     }
   }, [mutationData]);
 
