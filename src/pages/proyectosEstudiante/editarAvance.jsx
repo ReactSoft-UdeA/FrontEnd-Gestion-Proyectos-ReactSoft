@@ -17,6 +17,7 @@ const EditarAvance = () => {
     data: queryData,
     error: queryError,
     loading: queryLoading,
+    refetch,
   } = useQuery(GET_AVANCE, {
     variables: { _id },
   });
@@ -37,6 +38,7 @@ const EditarAvance = () => {
   useEffect(() => {
     if (mutationData) {
       toast.success("Usuario modificado correctamente");
+      refetch();
     }
   }, [mutationData]);
 
@@ -56,16 +58,10 @@ const EditarAvance = () => {
     <div>
       <PrivateRoute roleList={["ESTUDIANTE"]}>
         <div className="flew flex-col w-full h-full items-center justify-center p-10">
-          {/* boton atras */}
           <button type="button" class="btn btn-outline-primary">
             <Link to="/proyectosEstudiante/index">Atras </Link>
           </button>
           <br />
-          {/* <div class="col-lg-11 m-10 d-flex flex-wrap align-items-start"> */}
-
-          {/* formulario */}
-
-          {/* ************************************** */}
           <br />
           <br />
           <div className=" bg-gray-100 text-center display-5">
@@ -79,23 +75,13 @@ const EditarAvance = () => {
             ref={form}
             className="flex flex-col items-center justify-center"
           >
-            {/* <span>Rol del usuario: {queryData.Avance._id}</span> */}
-
-            {/* <input
-              label="ID del Avance"
-              className="form-control text-center"
-              type="text"
-              name="_id"
-              defaultValue={queryData.Avance._id}
-              disabled
-              readonly
-            /> */}
             <Input
               label="Id del Avance"
               type="text"
               name="_id"
               defaultValue={queryData.Avance._id}
               required={false}
+              disabled
             />
             <Input
               label="Fecha"
@@ -116,14 +102,8 @@ const EditarAvance = () => {
               type="text"
               name="observaciones"
               defaultValue={queryData.Avance.observaciones}
-              disabled
               required={false}
             />
-            {/* <ButtonLoading
-          disabled={Object.keys(formData).length === 0}
-          loading={mutationLoading}
-          text="Confirmar Cambio"
-        /> */}
             <ButtonLoading
               disabled={Object.keys(formData).length === 0}
               loading={mutationLoading}

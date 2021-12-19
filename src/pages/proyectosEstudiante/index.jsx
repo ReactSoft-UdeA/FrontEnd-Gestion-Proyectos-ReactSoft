@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_PROYECTOS_INSCRITOS } from "graphql/proyectosEstudiante/queries";
 import { toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useUser } from "context/userContext";
 import PrivateRoute from "components/PrivateRoute";
 
@@ -11,16 +11,10 @@ const IndexProyectosEstudiante = () => {
   const [IdEstudiante, setIdEstudiante] = useState("");
 
   useEffect(() => {
-    // const liderId = '"' + userData._id + '"';
-    // console.log("IdFront", liderId);
     setIdEstudiante(userData._id);
   }, [userData]);
 
-  //FUNCION PARA TRAER PROYECTOS POR LIDER
-  const { data, loading, error } = useQuery(GET_PROYECTOS_INSCRITOS, {
-    // variables: {
-    //   id: "61b79c8acab37ce3d6d26400",
-    // },
+  const { data, loading, error, refetch } = useQuery(GET_PROYECTOS_INSCRITOS, {
     variables: {
       id: IdEstudiante,
     },
@@ -28,13 +22,16 @@ const IndexProyectosEstudiante = () => {
 
   useEffect(() => {
     console.log("data servidor ", data);
+    refetch();
   }, [data]);
 
-  // try {
+  // useEffect(() => {
+  //   if (data) {
+  //     toast.success("Inscripción creada con exito");
+  //     refetch();
+  //   }
+  // }, [data]);
 
-  // } catch (error) {
-
-  // }
   useEffect(() => {
     if (error) {
       toast.error("Error en la consulta de Proyectos");
@@ -51,7 +48,6 @@ const IndexProyectosEstudiante = () => {
         <div className=" bg-gray-100 text-center display-1 h1 pt-15">
           <h1>Mis Proyectos Inscritos </h1>
         </div>
-        {/* <h1 class="text-center display-1 h1 pt-10">Mis Proyectos Inscritos</h1> */}
         <div class="container pt-10">
           <table class="table table-striped table-hover align-middle table-bordered ">
             <thead className="tabla">
@@ -78,7 +74,7 @@ const IndexProyectosEstudiante = () => {
                   Apellido{" "}
                 </th>
                 <th scope="col" className="text-center">
-                  Avances
+                  Opciones
                 </th>
               </tr>
             </thead>
@@ -86,7 +82,6 @@ const IndexProyectosEstudiante = () => {
               {data &&
                 data.ProyectosInscritos.map((u) => {
                   return (
-                    // cambiar id de URL
                     <tr key={u._id}>
                       <td class="text-center">{u.proyecto._id.slice(20)}</td>
                       <td class="text-center">{u.proyecto.nombre}</td>
@@ -99,18 +94,29 @@ const IndexProyectosEstudiante = () => {
                         class="d-flex justify-content-around align-items-center"
                         style={{ color: "#1588B4", height: "65px" }}
                       >
-                        <Link
-                          to={`/proyectosEstudiante/avances/${u.proyecto._id}`}
-                        >
-                          <button> Ver Avances</button>
-                          <i class="fas fa-eye input-group justify-content-around "></i>
-                        </Link>
-                        <Link
-                          to={`/proyectosEstudiante/nuevoAvance/${u.proyecto._id}`}
-                        >
-                          <button> Crear Avance</button>
-                          <i class="fas fa-pencil-alt input-group justify-content-around "></i>
-                        </Link>
+                        {u.estado === "ACEPTADO" && (
+                          <Link
+                            to={`/proyectosEstudiante/avances/${u.proyecto._id}`}
+                          >
+                            <button> Ver Avances</button>
+                            <i class="fas fa-eye input-group justify-content-around "></i>
+                          </Link>
+                        )}
+                        {u.estado === "ACEPTADO" && (
+                          <Link
+                            to={`/proyectosEstudiante/nuevoAvance/${u.proyecto._id}`}
+                          >
+                            <button> Crear Avance</button>
+                            <i class="fas fa-pencil-alt input-group justify-content-around "></i>
+                          </Link>
+                        )}
+
+                        {u.estado === "PENDIENTE" && (
+                          <span>Inscripción Pendiente</span>
+                        )}
+                        {u.estado === "RECHAZADO" && (
+                          <span> Inscripción Declinada</span>
+                        )}
                       </td>
                     </tr>
                   );

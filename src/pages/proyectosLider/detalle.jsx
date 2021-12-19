@@ -1,21 +1,4 @@
-// import React from "react";
-// import PrivateRoute from "components/PrivateRoute";
-
-// const ProyectosDetalle = () => {
-//   return (
-//     <div>
-//       <PrivateRoute roleList={["LIDER"]}>
-//         <h1 className="text-center display-1 h1 pt-10 ">
-//           Detalles del Proyecto
-//         </h1>
-//       </PrivateRoute>
-//     </div>
-//   );
-// };
-
-// export default ProyectosDetalle;
-
-import React, { useEffect } from "react";
+import React, {useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
@@ -26,13 +9,54 @@ import {
   RECHAZAR_INSCRIPCION,
 } from "graphql/inscripciones/mutaciones";
 import ButtonLoading from "components/ButtonLoading";
+import {EDITAR_PROYECTO_LIDER} from "graphql/proyectosLider/mutations"
+import {ADD_OBSERVACION_AVANCE} from "graphql/proyectosLider/mutations"
+import {EDITAR_OBJETIVO} from "graphql/proyectosLider/mutations"
+import useFormData from "hooks/useFormData";
+import { useNavigate } from "react-router";
 
 const ProyectosDetalle = () => {
-  const { _id } = useParams();
 
+  const navigate = useNavigate();
+  const { form, formData, updateFormData } = useFormData(null);
+  const { _id } = useParams();
+  
   /* const {data: queryData, error: queryError, loading: queryLoading} = useQuery(GET_USUARIO, {
         variables: {_id},
     }); */
+
+    const [
+      editarProyecto,
+      { data: mutationData3, loading: mutationLoading3, error: mutationError3 },
+    ] = useMutation(EDITAR_PROYECTO_LIDER);
+    
+    // agregar observación
+    const [
+      editarAvanceObs,
+      { data: mutationData4, loading: mutationLoading4, error: mutationError4 },
+    ] = useMutation(ADD_OBSERVACION_AVANCE);
+    
+    const [
+      editarObjetivo,
+      { data: mutationData5, loading: mutationLoading5, error: mutationError5 },
+    ] = useMutation(EDITAR_OBJETIVO);
+  
+    useEffect(() => {
+      if (mutationData3) {
+          
+        inhabilitarInputs();
+        toast.success('El proyecto se editó Exitosamente!!');
+        /* formData=0 */
+  
+      }
+    }, [mutationData3]);
+
+    useEffect(() => {
+      if (mutationData4) {
+        toast.success('Avance agregado Exitosamente!!');
+      }
+    }, [mutationData4]);
+
 
   const {
     data: queryData2,
@@ -124,8 +148,83 @@ const ProyectosDetalle = () => {
   if (queryLoading2)
     return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 
+  const habilitarEdicionProyecto = ()=>{
+    document.querySelector(".editElement").disabled=false;
+    document.querySelector(".editElement2").disabled=false;
+    document.querySelector("#BtnEditar").style.display='none';
+    document.querySelector("#btnGuardarProyecto").style.display='block';
+  }
+
+  const submitForm = (e)=>{
+    e.preventDefault();
+    formData.presupuesto = parseFloat(formData.presupuesto);
+    console.log(formData);
+    editarProyecto({
+        variables: { _id, ...formData },
+      });
+  }
+
+ 
+
+  const inhabilitarInputs = ()=>{
+    document.querySelector(".editElement").disabled=true;
+    document.querySelector(".editElement2").disabled=true;
+    document.querySelector("#BtnEditar").style.display='block';
+    document.querySelector("#btnGuardarProyecto").style.display='none';
+   }    
+
+   // adicionar observaciones
+   const obtenerAvance = (e)=>{
+      document.querySelector("#idAvance").value = e.target.value;
+      document.querySelector("#idAvanceInput").value = '';
+   }
+
+
+   const guardarObservacionAvance = ()=>{
+    let _id = (document.querySelector("#idAvance").value).toString();
+    let observaciones = (document.querySelector("#idAvanceInput").value).toString();
+    editarAvanceObs({
+      variables: { _id, observaciones },
+    })
+   }
+
   return (
     <div>
+
+{/* <!-- Modal --> */}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE OBSERVACIONES</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label>ID Avance: </label>
+        <input type="text" id="idAvance" style={{color:"blue"}}/>
+        <div class="mb-3 col-lg-10 m-3">
+          <label for="exampleFormControlInput1" class="form-label">
+            Observación
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="idAvanceInput"
+          />
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" data-bs-dismiss="modal" onClick={guardarObservacionAvance} class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    {/* fin modal */}
+
+
       <PrivateRoute roleList={["LIDER"]}>
         <div class="col-lg-11 m-10 d-flex flex-wrap align-items-start">
           <button type="button" class="btn btn-outline-primary">
@@ -157,6 +256,12 @@ const ProyectosDetalle = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div class="accordion-body d-flex flex-wrap">
+                  <form
+                    onSubmit={submitForm} 
+                    onChange={updateFormData}
+                    ref={form}
+                    className="d-flex flex-wrap"
+                  >
                   <div class="mb-3 col-lg-3 m-3">
                     <label for="exampleFormControlInput1" class="form-label">
                       Id Proyecto
@@ -174,8 +279,10 @@ const ProyectosDetalle = () => {
                     </label>
                     <input
                       type="text"
-                      class="form-control"
-                      value={queryData2.ProyectosPorId[0].nombre}
+                      class="form-control editElement"
+                      name="nombre"
+                      defaultValue={queryData2.ProyectosPorId[0].nombre}
+                      disabled
                     />
                   </div>
                   <div class="mb-3 col-lg-3 m-3">
@@ -184,8 +291,10 @@ const ProyectosDetalle = () => {
                     </label>
                     <input
                       type="text"
-                      class="form-control"
-                      value={queryData2.ProyectosPorId[0].presupuesto}
+                      class="form-control editElement2"
+                      name="presupuesto"
+                      defaultValue={queryData2.ProyectosPorId[0].presupuesto}
+                      disabled
                     />
                   </div>
                   <div class="mb-3 col-lg-3 m-3">
@@ -217,9 +326,16 @@ const ProyectosDetalle = () => {
                     <input
                       type="text"
                       class="form-control"
-                      value={queryData2.ProyectosPorId[0].estado}
+                      defaultValue={queryData2.ProyectosPorId[0].estado}
+                      disabled
                     />
                   </div>
+                  
+                  <div class="mb-3 col-lg-3 m-3">
+                    <button type="button" id="BtnEditar" onClick={habilitarEdicionProyecto} class="btn btn-primary">Editar</button>
+                    <button type="submit" id="btnGuardarProyecto" style={{display:'none'}} class="btn btn-warning">Guardar cambios</button>
+                  </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -243,6 +359,7 @@ const ProyectosDetalle = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div class="accordion-body">
+                  <br/>
                   <table class="table table-hover">
                     <thead>
                       <tr>
@@ -264,6 +381,7 @@ const ProyectosDetalle = () => {
                         })}
                     </tbody>
                   </table>
+                  <br/>
                 </div>
               </div>
             </div>
@@ -287,12 +405,22 @@ const ProyectosDetalle = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div class="accordion-body">
-                  <table class="table table-hover">
-                    <thead>
+                  <table className="table table-striped table-hover align-middle table-bordered bg-gray-100">
+                    <thead className="tabla">
                       <tr>
-                        <th scope="col">ID OBJETIVO</th>
-                        <th scope="col">TIPO</th>
-                        <th scope="col">DESCRIPCIÓN</th>
+                        <th scope="col" className="text-center ">
+                          ID AVANCE
+                        </th>
+                        {/* <th scope="col">TIPO</th> */}
+                        <th scope="col" className="text-center">
+                          DESCRIPCIÓN
+                        </th>
+                        <th scope="col" className="text-center">
+                          OBSERVACIONES
+                        </th>
+                        <th scope="col" className="text-center">
+                          OPCIONES
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -301,8 +429,24 @@ const ProyectosDetalle = () => {
                           return (
                             <tr key={u._id}>
                               <td class="text-center">{u._id.slice(20)}</td>
-                              <td class="text-center">{u.fechaAvance}</td>
+                              {/* <td class="text-center">{u.fechaAvance}</td> */}
                               <td class="text-center">{u.descripcion}</td>
+                              <td class="text-center">
+                                <ul>
+                                {
+                                  u.observaciones.map((obs)=>{
+                                    return (
+                                     <li>{obs}</li> 
+                                    )
+                                  })
+                                }
+                                </ul>
+                                </td>
+                                <td class="d-flex justify-center">
+                                {<button type="button" onClick={obtenerAvance} value={u._id} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                  Adicionar
+                                </button>}
+                              </td>
                             </tr>
                           );
                         })}
