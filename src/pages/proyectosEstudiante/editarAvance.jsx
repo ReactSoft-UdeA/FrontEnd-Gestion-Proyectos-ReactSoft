@@ -81,6 +81,7 @@ const EditarAvance = () => {
               name="_id"
               defaultValue={queryData.Avance._id}
               required={false}
+              disabled
             />
             <Input
               label="Fecha"
@@ -101,7 +102,6 @@ const EditarAvance = () => {
               type="text"
               name="observaciones"
               defaultValue={queryData.Avance.observaciones}
-              disabled
               required={false}
             />
             <ButtonLoading

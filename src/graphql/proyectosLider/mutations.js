@@ -32,7 +32,7 @@ mutation EditarProyecto(
 
 const ADD_OBSERVACION_AVANCE = gql`
 mutation Mutation($_id: String!, $observaciones: String) {
-    editarAvance(_id: $_id, observaciones: $observaciones) {
+    editarAvanceObs(_id: $_id, observaciones: $observaciones) {
       _id
       observaciones
     }

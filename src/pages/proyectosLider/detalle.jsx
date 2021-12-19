@@ -32,7 +32,7 @@ const ProyectosDetalle = () => {
     
     // agregar observación
     const [
-      editarAvance,
+      editarAvanceObs,
       { data: mutationData4, loading: mutationLoading4, error: mutationError4 },
     ] = useMutation(ADD_OBSERVACION_AVANCE);
     
@@ -184,7 +184,7 @@ const ProyectosDetalle = () => {
    const guardarObservacionAvance = ()=>{
     let _id = (document.querySelector("#idAvance").value).toString();
     let observaciones = (document.querySelector("#idAvanceInput").value).toString();
-    editarAvance({
+    editarAvanceObs({
       variables: { _id, observaciones },
     })
    }
