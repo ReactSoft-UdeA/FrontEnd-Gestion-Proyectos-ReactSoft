@@ -19,6 +19,7 @@ const IndexInscripciones = () => {
   }, [data]);
   if (loading) return <div>Loading...</div>;
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <PrivateRoute roleList={["ADMINISTRADOR", "LIDER"]}>
       <div className="p-10">
         <div>Pagina de inscripciones</div>
@@ -40,6 +41,7 @@ const IndexInscripciones = () => {
         </div>
       </div>
     </PrivateRoute>
+    </div>
   );
 };
 

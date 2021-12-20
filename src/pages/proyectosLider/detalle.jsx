@@ -189,6 +189,7 @@ const ProyectosDetalle = () => {
    }
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <div>
 
 {/* <!-- Modal --> */}
@@ -228,7 +229,9 @@ const ProyectosDetalle = () => {
       <PrivateRoute roleList={["LIDER"]}>
         <div class="col-lg-11 m-10 d-flex flex-wrap align-items-start">
           <button type="button" class="btn btn-outline-primary">
+            <div className="bg-gradient-r green-100 text-white text-bold">
             <Link to="/proyectosLider/index">Atras </Link>
+            </div>
           </button>
           <br />
           <br />
@@ -554,6 +557,7 @@ const ProyectosDetalle = () => {
           </div>
         </div>
       </PrivateRoute>
+    </div>
     </div>
   );
 };
