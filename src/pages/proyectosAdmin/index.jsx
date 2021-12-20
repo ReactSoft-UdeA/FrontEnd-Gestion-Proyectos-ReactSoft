@@ -23,9 +23,10 @@ const IndexProyectosAdmin = () => {
   if (loading) return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <div>
       <PrivateRoute roleList={["ADMINISTRADOR"]}>
-        <h1 className="text-center display-1 h1 pt-10 ">
+        <h1 className="text-7xl text-gray-900 text-white font-medium tracking-tight text-center">
           Proyectos Registrados
         </h1>
 
@@ -91,6 +92,7 @@ const IndexProyectosAdmin = () => {
           </div>
         </div>
       </PrivateRoute>
+    </div>
     </div>
   );
 };

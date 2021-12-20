@@ -22,24 +22,25 @@ const AvancesEstudiante = () => {
     return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <div>
       <PrivateRoute roleList={["ESTUDIANTE"]}>
         <div className="flew flex-col w-full h-full items-center justify-center p-10">
-          <button type="button" class="btn btn-outline-primary">
+          <button type="button" class="btn btn-outline-primary bg-gradient-r green-100 text-white text-bold">
             <Link to="/proyectosEstudiante/index">Atras </Link>
           </button>
 
           <br />
           <br />
 
-          <div className=" bg-gray-100 text-center display-1 h1 pt-15">
+          <div className=" bg-gray-100 text-bold text-center display-1 h1 pt-15">
             <h1>Avances </h1>
           </div>
 
           <br />
           <br />
 
-          <table class="table table-striped table-hover align-middle table-bordered">
+          <table class="table table-success table-striped table-hover align-middle table-bordered ">
             <thead className="tabla">
               <tr>
                 <th scope="col" className="text-center">
@@ -94,6 +95,7 @@ const AvancesEstudiante = () => {
           </table>
         </div>
       </PrivateRoute>
+    </div>
     </div>
   );
 };

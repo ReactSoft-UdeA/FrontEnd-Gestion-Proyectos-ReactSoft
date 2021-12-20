@@ -64,13 +64,14 @@ const NuevoProyecto = () => {
   if (loading) return <div>...Loading</div>;
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <div className='p-10 flex flex-col items-center'>
       <div className='self-start'>
         <Link to='/proyectosObjetivo'>
           <i className='fas fa-arrow-left' />
         </Link>
       </div>
-      <h1 className='text-2xl font-bold text-gray-900'>Crear Nuevo Proyecto</h1>
+      <h1 className='text-7xl text-gray-900 text-white font-medium tracking-tight'>Crear Nuevo Proyecto</h1>
       <form ref={form} onChange={updateFormData} onSubmit={submitForm}>
         <Input name='nombre' label='Nombre del Proyecto' required={true} type='text' />
         <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
@@ -80,6 +81,7 @@ const NuevoProyecto = () => {
         <Objetivos />
         <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
       </form>
+    </div>
     </div>
   );
 };

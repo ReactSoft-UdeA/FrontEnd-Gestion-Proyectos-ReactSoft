@@ -53,11 +53,12 @@ const EditarUsuario = () => {
   if (queryLoading) return <div>Cargando....</div>;
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <div className='flew flex-col w-full h-full items-center justify-center p-10'>
       <Link to='/usuarios'>
         <i className='fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
       </Link>
-      <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Usuario</h1>
+      <h1 className='text-7xl text-gray-900 text-white font-medium tracking-tight text-center'>Editar Usuario</h1>
       <form
         onSubmit={submitForm}
         onChange={updateFormData}
@@ -106,6 +107,7 @@ const EditarUsuario = () => {
           text='Confirmar'
         />
       </form>
+    </div>
     </div>
   );
 };

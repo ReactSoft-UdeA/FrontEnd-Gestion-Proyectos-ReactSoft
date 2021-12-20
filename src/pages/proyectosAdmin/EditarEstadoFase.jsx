@@ -56,15 +56,15 @@ const EditarEstadoFase = () => {
 
     return (
 
-
-        <div className="flew flex-col w-full h-full items-center justify-center p-10">
+      <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
+        <div className="flew flex-col w-full h-full items-center justify-center p-11">
             {/* <Link to='/usuarios'>
                     <i className='fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
                 </Link> */}
             {/* <button type="button" class="btn btn-outline-primary">
             <Link to="/proyectosAdmin">Atras </Link>
             </button> */}
-            <h1 className="m-4 text-3xl text-gray-800 font-bold text-center">
+            <h1 className="text-7xl text-gray-900 text-white font-medium tracking-tight text-center">
             Editar Estado Y Fase De Proyecto
             </h1>
 
@@ -78,7 +78,7 @@ const EditarEstadoFase = () => {
                         <div class="col">
                             {/* Column1 */}
                             {/* <Input label="Nombre:" type="text" name="nombre" defaultValue={queryData.Proyecto.nombre} required={true} disabled readonly /> */}
-                            <h6 className="text-center p-1 font-bold" >Nombre Del Proyecto</h6>
+                            <h6 className="text-center p-3 font-bold" >Nombre Del Proyecto</h6>
                             <input className ="form-control text-center" type="text" name="nombre" defaultValue={queryData.ProyectoEstadoFase.nombre}  disabled readonly />
                             <h6 className="text-center p-1 mt-2 font-bold" >Fecha Inicio Proyecto</h6>
                             <input className ="form-control text-center" type="text" name="fechaInicio" defaultValue={queryData.ProyectoEstadoFase.fechaInicio}  disabled readonly />
@@ -88,7 +88,7 @@ const EditarEstadoFase = () => {
                         <div class="col">
                             {/* Column2 */}
                             {/* <Input label="Presupuesto:" type="text" name="presupuesto" defaultValue={queryData.Proyecto.presupuesto} required={true} /> */}
-                            <h6 className="text-center p-1 font-bold" >Presupuesto Del Proyecto</h6>
+                            <h6 className="text-center p-3 font-bold" >Presupuesto Del Proyecto</h6>
                             <input className ="form-control text-center" type="text" name="presupuesto" defaultValue={queryData.ProyectoEstadoFase.presupuesto}  disabled readonly />
                             <h6 className="text-center p-1 mt-2 font-bold" >Fecha Fin Proyecto</h6>
                             <input className ="form-control text-center" type="text" name="fechaFin" defaultValue={queryData.ProyectoEstadoFase.fechaFin}  disabled readonly />
@@ -105,7 +105,7 @@ const EditarEstadoFase = () => {
                 <div className="container d-flex justify-content-center mt-5">
                     {/* <ButtonLoading disabled={false} loading={false} text="Confirmar Cambio" /> */}
                     {/* <ButtonLoading disabled={Object.keys(formData).length === 0} loading={mutationLoading} text="Confirmar Cambio" /> */}
-                    <button type="button" class="btn btn-outline-primary"> <Link to="/proyectosAdmin">Atras </Link> </button>
+                    <button type="button" class="btn btn-outline-primary bg-gradient-r green-100 text-white text-bold"> <Link to="/proyectosAdmin">Atras </Link> </button>
                 </div>
             </form>
 
@@ -113,6 +113,7 @@ const EditarEstadoFase = () => {
 
 
 
+        </div>
         </div>
     )
 }

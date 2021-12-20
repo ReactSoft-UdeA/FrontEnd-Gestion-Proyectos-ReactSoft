@@ -26,16 +26,17 @@ const IndexProyectos = () => {
 
   if (queryData.Proyectos) {
     return (
+      <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
       <ProjectQueryContext.Provider value={{queryData, refetch}} >
       <div className='p-10 flex flex-col'>
         <div className='flex w-full items-center justify-center'>
-          <h1 className='text-4xl font-bold text-gray-900'>Lista de Proyectos con Objetivos</h1>
+          <h1 className='text-7xl text-gray-900 text-white font-medium tracking-tight'>Lista de Proyectos con Objetivos</h1>
         </div>
         {/* <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}> */}
         <PrivateComponent roleList={['LIDER']}>
           <div className='my-2 self-end'>
             <button className='btn btn-outline-success'>
-              <Link className="text-green hover:text-white" to='/proyectos/nuevo'>Crear Proyecto</Link>
+              <Link className="bg-blue text-gray-900 hover:text-white" to='/proyectos/nuevo'>Crear Proyecto</Link>
             </button>
           </div>
         </PrivateComponent>
@@ -44,6 +45,7 @@ const IndexProyectos = () => {
         })}
       </div>
       </ProjectQueryContext.Provider>
+      </div>
     );
   }
 

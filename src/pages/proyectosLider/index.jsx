@@ -62,11 +62,14 @@ const IndexProyectosLider = () => {
   if (loading) return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
 
   return (
+    <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
     <div>
       <PrivateRoute roleList={["LIDER"]}>
-        <h1 class="text-center display-1 h1 pt-10">Mis Proyectos</h1>
+      <div className='flex w-full items-center justify-center'>
+          <h1 className='text-7xl text-gray-900 text-white font-medium tracking-tight'>Mis Proyectos</h1>
+        </div>
         <div class="container pt-10">
-          <table class="table table-hover">
+          <table class="table table-success table-striped table-hover align-middle table-bordered ">
             <thead>
               <tr>
                 <th scope="col">ID PROYECTO</th>
@@ -112,6 +115,7 @@ const IndexProyectosLider = () => {
           </table>
         </div>
       </PrivateRoute>
+    </div>
     </div>
   );
 };
