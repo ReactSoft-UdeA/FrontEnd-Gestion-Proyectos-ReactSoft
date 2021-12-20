@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN } from "graphql/auth/mutation";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,7 +26,6 @@ const Login = () => {
       variables: formData,
     });
   };
-
   useEffect(() => {
     if (dataMutation) {
       if (dataMutation.login.token) {
@@ -34,6 +34,7 @@ const Login = () => {
       }
     }
   }, [dataMutation, setToken, navigate]);
+
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-10 bg-gray-100">
