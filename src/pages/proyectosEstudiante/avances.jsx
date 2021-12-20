@@ -14,9 +14,15 @@ const AvancesEstudiante = () => {
     data: queryData,
     error: queryError,
     loading: queryLoading,
+    refetch,
   } = useQuery(GET_AVANCES, {
     variables: { _id },
   });
+
+  // useEffect(() => {
+  //   console.log("data servidor ", queryData);
+  //   refetch();
+  // }, [queryData]);
 
   if (queryLoading)
     return <h1 className="text-center display-1 h1"> Cargando!!</h1>;
