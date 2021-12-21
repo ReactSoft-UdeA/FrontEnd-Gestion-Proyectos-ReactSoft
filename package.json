@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "set \"CI=\" && craco build",
+    "build": "set \"CI=0\" && craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
