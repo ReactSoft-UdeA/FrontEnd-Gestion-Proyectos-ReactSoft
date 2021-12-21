@@ -7,7 +7,7 @@ import { useAuth } from "context/authContext";
 import { REFRESH_TOKEN } from "graphql/auth/mutation";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import PrivateRoute from "components/PrivateRoute";
+//import PrivateRoute from "components/PrivateRoute";
 
 const PrivateLayout = () => {
   const navigate = useNavigate();
