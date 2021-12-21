@@ -14,7 +14,7 @@ const IndexProyectosEstudiante = () => {
     setIdEstudiante(userData._id);
   }, [userData]);
 
-  const { data, loading, error, refetch } = useQuery(GET_PROYECTOS_INSCRITOS, {
+  const { data, loading, error } = useQuery(GET_PROYECTOS_INSCRITOS, {
     variables: {
       id: IdEstudiante,
     },
@@ -22,7 +22,7 @@ const IndexProyectosEstudiante = () => {
 
   useEffect(() => {
     console.log("data servidor ", data);
-    refetch();
+    //refetch();
   }, [data]);
 
   // useEffect(() => {
@@ -42,91 +42,91 @@ const IndexProyectosEstudiante = () => {
 
   return (
     <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
-    <div>
-      <PrivateRoute roleList={["ESTUDIANTE"]}>
-        <br />
-        <br />
-        <div className="text-7xl text-gray-900 text-white font-medium tracking-tight text-center">
-          <h1>Mis Proyectos Inscritos </h1>
-        </div>
-        <div class="container pt-10">
-          <table class="table table-success table-striped table-hover align-middle table-bordered ">
-            <thead className="tabla">
-              <tr>
-                <th scope="col" className="text-center">
-                  ID Proyecto
-                </th>
-                <th scope="col" className="text-center">
-                  Nombre Proyecto
-                </th>
-                <th scope="col" className="text-center">
-                  Lider
-                </th>
-                <th scope="col" className="text-center">
-                  ID Inscripción
-                </th>
-                <th scope="col" className="text-center">
-                  Estado Inscripción
-                </th>
-                <th scope="col" className="text-center">
-                  Nombre{" "}
-                </th>
-                <th scope="col" className="text-center">
-                  Apellido{" "}
-                </th>
-                <th scope="col" className="text-center">
-                  Opciones
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data &&
-                data.ProyectosInscritos.map((u) => {
-                  return (
-                    <tr key={u._id}>
-                      <td class="text-center">{u.proyecto._id.slice(20)}</td>
-                      <td class="text-center">{u.proyecto.nombre}</td>
-                      <td class="text-center">{u.proyecto.lider.nombre}</td>
-                      <td class="text-center">{u._id.slice(20)}</td>
-                      <td class="text-center">{u.estado}</td>
-                      <td class="text-center">{u.estudiante.nombre}</td>
-                      <td class="text-center">{u.estudiante.apellido}</td>
-                      <td
-                        class="d-flex justify-content-around align-items-center"
-                        style={{ color: "#1588B4", height: "65px" }}
-                      >
-                        {u.estado === "ACEPTADO" && (
-                          <Link
-                            to={`/proyectosEstudiante/avances/${u.proyecto._id}`}
-                          >
-                            <button> Ver Avances</button>
-                            <i class="fas fa-eye input-group justify-content-around "></i>
-                          </Link>
-                        )}
-                        {u.estado === "ACEPTADO" && (
-                          <Link
-                            to={`/proyectosEstudiante/nuevoAvance/${u.proyecto._id}`}
-                          >
-                            <button> Crear Avance</button>
-                            <i class="fas fa-pencil-alt input-group justify-content-around "></i>
-                          </Link>
-                        )}
+      <div>
+        <PrivateRoute roleList={["ESTUDIANTE"]}>
+          <br />
+          <br />
+          <div className="text-7xl text-gray-900 text-white font-medium tracking-tight text-center">
+            <h1>Mis Proyectos Inscritos </h1>
+          </div>
+          <div class="container pt-10">
+            <table class="table table-success table-striped table-hover align-middle table-bordered ">
+              <thead className="tabla">
+                <tr>
+                  <th scope="col" className="text-center">
+                    ID Proyecto
+                  </th>
+                  <th scope="col" className="text-center">
+                    Nombre Proyecto
+                  </th>
+                  <th scope="col" className="text-center">
+                    Lider
+                  </th>
+                  <th scope="col" className="text-center">
+                    ID Inscripción
+                  </th>
+                  <th scope="col" className="text-center">
+                    Estado Inscripción
+                  </th>
+                  <th scope="col" className="text-center">
+                    Nombre{" "}
+                  </th>
+                  <th scope="col" className="text-center">
+                    Apellido{" "}
+                  </th>
+                  <th scope="col" className="text-center">
+                    Opciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data &&
+                  data.ProyectosInscritos.map((u) => {
+                    return (
+                      <tr key={u._id}>
+                        <td class="text-center">{u.proyecto._id.slice(20)}</td>
+                        <td class="text-center">{u.proyecto.nombre}</td>
+                        <td class="text-center">{u.proyecto.lider.nombre}</td>
+                        <td class="text-center">{u._id.slice(20)}</td>
+                        <td class="text-center">{u.estado}</td>
+                        <td class="text-center">{u.estudiante.nombre}</td>
+                        <td class="text-center">{u.estudiante.apellido}</td>
+                        <td
+                          class="d-flex justify-content-around align-items-center"
+                          style={{ color: "#1588B4", height: "65px" }}
+                        >
+                          {u.estado === "ACEPTADO" && (
+                            <Link
+                              to={`/proyectosEstudiante/avances/${u.proyecto._id}`}
+                            >
+                              <button> Ver Avances</button>
+                              <i class="fas fa-eye input-group justify-content-around "></i>
+                            </Link>
+                          )}
+                          {u.estado === "ACEPTADO" && (
+                            <Link
+                              to={`/proyectosEstudiante/nuevoAvance/${u.proyecto._id}`}
+                            >
+                              <button> Crear Avance</button>
+                              <i class="fas fa-pencil-alt input-group justify-content-around "></i>
+                            </Link>
+                          )}
 
-                        {u.estado === "PENDIENTE" && (
-                          <span>Inscripción Pendiente</span>
-                        )}
-                        {u.estado === "RECHAZADO" && (
-                          <span> Inscripción Declinada</span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
-      </PrivateRoute>
-    </div>
+                          {u.estado === "PENDIENTE" && (
+                            <span>Inscripción Pendiente</span>
+                          )}
+                          {u.estado === "RECHAZADO" && (
+                            <span> Inscripción Declinada</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+        </PrivateRoute>
+      </div>
     </div>
   );
 };

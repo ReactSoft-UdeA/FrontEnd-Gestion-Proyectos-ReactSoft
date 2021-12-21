@@ -12,7 +12,7 @@ import {
 } from "components/Accordion";
 
 const IndexInscripciones = () => {
-  const { data, loading, error, refetch } = useQuery(GET_INSCRIPCIONES);
+  const { data, loading, refetch } = useQuery(GET_INSCRIPCIONES);
 
   useEffect(() => {
     console.log(data);
@@ -20,27 +20,31 @@ const IndexInscripciones = () => {
   if (loading) return <div>Loading...</div>;
   return (
     <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
-    <PrivateRoute roleList={["ADMINISTRADOR", "LIDER"]}>
-      <div className="p-10">
-        <div>Pagina de inscripciones</div>
-        <div className="my-4">
-          <AccordionInscripcion
-            titulo="Inscripciones aprobadas"
-            data={data.Inscripciones.filter((el) => el.estado === "ACEPTADO")}
-            refetch={refetch}
-          />
-          <AccordionInscripcion
-            titulo="Inscripciones pendientes"
-            data={data.Inscripciones.filter((el) => el.estado === "PENDIENTE")}
-            refetch={refetch}
-          />
-          <AccordionInscripcion
-            titulo="Inscripciones rechazadas"
-            data={data.Inscripciones.filter((el) => el.estado === "RECHAZADO")}
-          />
+      <PrivateRoute roleList={["ADMINISTRADOR", "LIDER"]}>
+        <div className="p-10">
+          <div>Pagina de inscripciones</div>
+          <div className="my-4">
+            <AccordionInscripcion
+              titulo="Inscripciones aprobadas"
+              data={data.Inscripciones.filter((el) => el.estado === "ACEPTADO")}
+              refetch={refetch}
+            />
+            <AccordionInscripcion
+              titulo="Inscripciones pendientes"
+              data={data.Inscripciones.filter(
+                (el) => el.estado === "PENDIENTE"
+              )}
+              refetch={refetch}
+            />
+            <AccordionInscripcion
+              titulo="Inscripciones rechazadas"
+              data={data.Inscripciones.filter(
+                (el) => el.estado === "RECHAZADO"
+              )}
+            />
+          </div>
         </div>
-      </div>
-    </PrivateRoute>
+      </PrivateRoute>
     </div>
   );
 };
@@ -65,14 +69,14 @@ const AccordionInscripcion = ({ data, titulo, refetch = () => {} }) => {
   );
 };
 
-const Inscripcion = ({ inscripcion, refetch }) => {
+const Inscripcion = ({ inscripcion }) => {
   const [aprobarInscripcion, { data, loading, error }] =
     useMutation(APROBAR_INSCRIPCION);
 
   useEffect(() => {
     if (data) {
       toast.success("Inscripcion aprobada con exito");
-      refetch();
+      //refetch();
     }
   }, [data]);
 

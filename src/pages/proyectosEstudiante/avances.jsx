@@ -1,18 +1,18 @@
 //import React, { useEffect } from "react";
 import PrivateRoute from "components/PrivateRoute";
 import { useParams, Link } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_AVANCES } from "graphql/proyectosEstudiante/queries";
-import useFormData from "hooks/useFormData";
+//import useFormData from "hooks/useFormData";
 //import ButtonLoading from "components/ButtonLoading";
 //import { toast } from "react-toastify";
 
 const AvancesEstudiante = () => {
-  const { form, formData, updateFormData } = useFormData(null);
+  //  const { form, formData, updateFormData } = useFormData(null);
   const { _id } = useParams();
   const {
     data: queryData,
-    error: queryError,
+    // error: queryError,
     loading: queryLoading,
   } = useQuery(GET_AVANCES, {
     variables: { _id },

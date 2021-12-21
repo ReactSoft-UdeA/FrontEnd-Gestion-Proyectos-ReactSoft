@@ -17,7 +17,7 @@ const EditarAvance = () => {
     data: queryData,
     error: queryError,
     loading: queryLoading,
-    refetch,
+    // refetch,
   } = useQuery(GET_AVANCE, {
     variables: { _id },
   });
@@ -38,7 +38,7 @@ const EditarAvance = () => {
   useEffect(() => {
     if (mutationData) {
       toast.success("Usuario modificado correctamente");
-      refetch();
+      // refetch();
     }
   }, [mutationData]);
 
@@ -56,64 +56,67 @@ const EditarAvance = () => {
 
   return (
     <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg px-6 py-8 ring-1 ring-gray-900/5 shadow-xl">
-    <div>
-      <PrivateRoute roleList={["ESTUDIANTE"]}>
-        <div className="flew flex-col w-full h-full items-center justify-center p-10">
-          <button type="button" class="btn btn-outline-primary bg-gradient-r green-100 text-white text-bold">
-            <Link to="/proyectosEstudiante/index">Atras </Link>
-          </button>
-          <br />
-          <br />
-          <br />
-          <div className=" bg-gray-100 text-center display-5">
-            <h5>Editar Avance </h5>
-          </div>
+      <div>
+        <PrivateRoute roleList={["ESTUDIANTE"]}>
+          <div className="flew flex-col w-full h-full items-center justify-center p-10">
+            <button
+              type="button"
+              class="btn btn-outline-primary bg-gradient-r green-100 text-white text-bold"
+            >
+              <Link to="/proyectosEstudiante/index">Atras </Link>
+            </button>
+            <br />
+            <br />
+            <br />
+            <div className=" bg-gray-100 text-center display-5">
+              <h5>Editar Avance </h5>
+            </div>
 
-          <br />
-          <form
-            onSubmit={submitForm}
-            onChange={updateFormData}
-            ref={form}
-            className="flex flex-col items-center justify-center"
-          >
-            <Input
-              label="Id del Avance"
-              type="text"
-              name="_id"
-              defaultValue={queryData.Avance._id}
-              required={false}
-              disabled
-            />
-            <Input
-              label="Fecha"
-              type="text"
-              name="fecha"
-              defaultValue={queryData.Avance.fecha.slice(0, 10)}
-              required={true}
-            />
-            <Input
-              label="Descripción"
-              type="text"
-              name="descripcion"
-              defaultValue={queryData.Avance.descripcion}
-              required={true}
-            />
-            <Input
-              label="Observaciones del Tutor"
-              type="text"
-              name="observaciones"
-              defaultValue={queryData.Avance.observaciones}
-              required={false}
-            />
-            <ButtonLoading
-              disabled={Object.keys(formData).length === 0}
-              loading={mutationLoading}
-              text="Guardar Cambios"
-            />
-          </form>
-        </div>
-      </PrivateRoute>
-    </div>
+            <br />
+            <form
+              onSubmit={submitForm}
+              onChange={updateFormData}
+              ref={form}
+              className="flex flex-col items-center justify-center"
+            >
+              <Input
+                label="Id del Avance"
+                type="text"
+                name="_id"
+                defaultValue={queryData.Avance._id}
+                required={false}
+                disabled
+              />
+              <Input
+                label="Fecha"
+                type="text"
+                name="fecha"
+                defaultValue={queryData.Avance.fecha.slice(0, 10)}
+                required={true}
+              />
+              <Input
+                label="Descripción"
+                type="text"
+                name="descripcion"
+                defaultValue={queryData.Avance.descripcion}
+                required={true}
+              />
+              <Input
+                label="Observaciones del Tutor"
+                type="text"
+                name="observaciones"
+                defaultValue={queryData.Avance.observaciones}
+                required={false}
+              />
+              <ButtonLoading
+                disabled={Object.keys(formData).length === 0}
+                loading={mutationLoading}
+                text="Guardar Cambios"
+              />
+            </form>
+          </div>
+        </PrivateRoute>
+      </div>
     </div>
   );
 };
